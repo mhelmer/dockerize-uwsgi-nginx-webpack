@@ -1,0 +1,23 @@
+django:
+    restart: always
+    build: ./django
+    volumes:
+        - ./django/src:/srv/django
+    expose:
+        - "8000"
+
+nginx:
+    build: ./nginx
+    ports:
+        - "8080:80"
+    links:
+        - django:django
+    volumes_from:
+        - django
+        - react
+
+react:
+    build: ./react
+    volumes:
+        - ./react/src:/srv/react
+    command: webpack --progress --colors --watch

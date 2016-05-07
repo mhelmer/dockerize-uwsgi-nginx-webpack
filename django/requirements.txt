@@ -1,2 +1,1 @@
-uWSGI==2.0.12
 virtualenv==14.0.6

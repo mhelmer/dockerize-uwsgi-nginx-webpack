@@ -18,7 +18,9 @@ pip-delete-this-directory.txt
 /django/src/.env
 /django/src/db.sqlite3
 /django/src/static
+/django/src/.bash_history
+/django/src/.cache/
 
 /react/src/node_modules
 /react/src/dist
-
+/react/src/.npm/
