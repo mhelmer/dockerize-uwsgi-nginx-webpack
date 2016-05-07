@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Translations
+*.mo
+*.pot
+
+# dotenv
+/django/src/.env
+/django/src/db.sqlite3
+/django/src/static
+
+/react/src/node_modules
+/react/src/dist
+

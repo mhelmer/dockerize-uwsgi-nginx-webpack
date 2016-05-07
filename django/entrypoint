@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+COMMAND=$@
+source .env/bin/activate
+$COMMAND

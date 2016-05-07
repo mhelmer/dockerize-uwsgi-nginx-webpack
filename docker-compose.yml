@@ -1,0 +1,22 @@
+django:
+    restart: always
+    build: ./django
+    volumes:
+        - /srv/django/static
+    expose:
+        - "8000"
+
+nginx:
+    build: ./nginx
+    ports:
+        - "8080:80"
+    links:
+        - django:django
+    volumes_from:
+        - django
+        - react
+
+react:
+    build: ./react
+    volumes:
+        - /srv/react/dist
