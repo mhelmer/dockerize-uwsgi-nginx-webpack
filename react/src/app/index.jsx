@@ -1,64 +1,28 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { syncHistoryWithStore } from 'react-router-redux'
+import rootReducer from './reducers/index.js'
+import { App, NotFound, Home, Users, User } from './components/index.jsx'
 
-const NotFound = React.createClass({
-  render() {
-    return (
-      <h1>Not Found</h1>
-    )
-  }
-})
+const store = createStore(rootReducer)
+const history = syncHistoryWithStore(browserHistory, store)
 
 
-const Index = React.createClass({
-  render() {
-    return (
-      <div>
-        <h1>Index</h1>
-        <div className="detail">
-          {this.props.children}
-        </div>
-      </div>
-    )
-  }
-})
-
-const About = () => (
-    <h2>About</h2>
+const routes = (
+  <Provider store={store}>
+    <Router history={history}>
+      <Route path="/" component={App}>
+        <IndexRoute component={Home} />
+        <Route path="users" component={Users}>
+          <Route path=":userId" component={User}/>
+        </Route>
+        <Route path="*" component={NotFound} />
+      </Route>
+    </Router>
+  </Provider>
 )
 
-const Users = React.createClass({
-  render() {
-    return (
-      <div>
-        <h2>Users</h2>
-        {this.props.children}
-      </div>
-    )
-  }
-})
-
-
-const User = React.createClass({
-  render() {
-    console.log(this.props)
-    return (
-      <div>
-        <h2>{ this.props.params.userId }</h2>
-      </div>
-    )
-  }
-})
-
-render((
-  <Router history={browserHistory}>
-    <Route path="/" component={Index}>
-      <Route path="about" component={About} />
-      <Route path="users" component={Users}>
-        <Route path="/users/:userId" component={User}/>
-      </Route>
-      <Route path="*" component={NotFound} />
-    </Route>
-  </Router>
-), document.getElementById('app'))
+render(routes, document.getElementById('app'))
