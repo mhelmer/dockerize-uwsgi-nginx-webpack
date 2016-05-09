@@ -5,6 +5,8 @@ django:
         - /srv/django/static
     expose:
         - "8000"
+    links:
+        - db:db
 
 nginx:
     build: ./nginx
@@ -20,3 +22,6 @@ react:
     build: ./react
     volumes:
         - /srv/react/dist
+
+db:
+    image: postgres

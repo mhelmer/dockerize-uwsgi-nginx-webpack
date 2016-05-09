@@ -5,6 +5,8 @@ django:
         - ./django/src:/srv/django
     expose:
         - "8000"
+    links:
+        - db:db
 
 nginx:
     build: ./nginx
@@ -21,3 +23,6 @@ react:
     volumes:
         - ./react/src:/srv/react
     command: webpack --progress --colors --watch
+
+db:
+    image: postgres
