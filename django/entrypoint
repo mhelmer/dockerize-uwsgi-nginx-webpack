@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 COMMAND=$@
+if [ ! -d ".env" ]; then
+	virtualenv .env
+fi
 source .env/bin/activate
 $COMMAND

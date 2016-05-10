@@ -2,9 +2,9 @@ FROM python:3.5
 
 COPY entrypoint /usr/local/bin/entrypoint
 
-RUN mkdir -p /srv/uwsgi
-COPY requirements.txt /srv/uwsgi
-RUN pip install --no-cache-dir -r /srv/uwsgi/requirements.txt
+RUN mkdir -p /usr/src/app
+COPY requirements.txt /usr/src/app/
+RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 
 # Create django user, will own the Django app
 RUN useradd -s /bin/bash --uid 1000 --home-dir /srv/django django
