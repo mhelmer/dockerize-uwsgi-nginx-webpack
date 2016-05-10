@@ -34,26 +34,26 @@ export function login (username, password) {
 
     dispatch(loginRequest())
 
-    return fetch('/api-token-auth/', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({username, password})
+    return new Promise((resolve, reject) => {
+      fetch('/api-token-auth/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username, password})
+      })
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(json => {
+          localStorage.setItem('token', json.token)
+          dispatch(loginSuccess())
+          resolve({ username, password })
+        })
+        .catch(error => {
+          dispatch(loginFailure())
+          parseJSON(error.response).then(json => {reject({ ...json, _error: json.non_field_errors })})
+        })
     })
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(json => {
-        console.log('success')
-        localStorage.setItem('token', json.token)
-        dispatch(loginSuccess())
-        return Promise.resolve({ username, password })
-      })
-      .catch(error => {
-        console.log('fail')
-        dispatch(loginFailure())
-        return Promise.reject(error)
-      })
   }
 }
