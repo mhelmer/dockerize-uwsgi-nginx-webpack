@@ -6,7 +6,7 @@ const default_users = [
   {id: 5, username: 'janola'}
 ]
 
-export function users(state={items: default_users}, action) {
+export function users (state={items: default_users}, action) {
   switch (action.type) {
     default:
       return state

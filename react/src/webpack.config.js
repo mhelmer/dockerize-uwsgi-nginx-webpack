@@ -1,7 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var webpackConfig = {
-  entry: './app/index.jsx',
+  entry: ['babel-polyfill', './app/index.jsx'],
   output: {
     path: 'dist',
     filename: 'js/bundle.js',
