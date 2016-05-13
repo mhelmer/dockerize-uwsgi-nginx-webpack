@@ -16,13 +16,15 @@ nginx:
         - django:django
     volumes_from:
         - django
-        - react
 
 react:
     build: ./react
     volumes:
         - ./react/src:/srv/react
-    command: webpack --progress --colors --watch
+    ports:
+        - "8000:8000"
+    links:
+        - nginx:nginx
 
 db:
     image: postgres

@@ -24,3 +24,6 @@ pip-delete-this-directory.txt
 /react/src/node_modules
 /react/src/dist
 /react/src/.npm/
+/react/src/.bash_history
+/react/src/.node_repl_history
+/react/src/npm-debug.log
