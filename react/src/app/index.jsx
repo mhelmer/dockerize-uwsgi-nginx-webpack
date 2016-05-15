@@ -1,37 +1,30 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import createLogger from 'redux-logger'
 import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
-import rootReducer from './reducers/index.js'
+import DevTools from './containers/DevTools'
 import { App, NotFound, Home, Users, User } from './components/index.jsx'
+import configureStore from './store/configureStore'
 
-const loggerMiddleware = createLogger()
+const store = configureStore()
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware
-  )
-)
 const history = syncHistoryWithStore(browserHistory, store)
-
 
 const routes = (
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Home} />
-        <Route path="users" component={Users}>
-          <Route path=":userId" component={User}/>
+    <div>
+      <Router history={history}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Home} />
+          <Route path="users" component={Users}>
+            <Route path=":userId" component={User}/>
+          </Route>
+          <Route path="*" component={NotFound} />
         </Route>
-        <Route path="*" component={NotFound} />
-      </Route>
-    </Router>
+      </Router>
+      { process.env.NODE_ENV !== 'production' ? <DevTools /> : null }
+    </div>
   </Provider>
 )
 
