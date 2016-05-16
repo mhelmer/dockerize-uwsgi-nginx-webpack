@@ -6,7 +6,7 @@ var path = require('path');
 
 var webpackConfig = {
   entry: {
-    app: [
+    bundle: [
       'webpack-dev-server/client?http://localhost:8000',
       'webpack/hot/only-dev-server',
       'babel-polyfill',
@@ -15,7 +15,7 @@ var webpackConfig = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/bundle.js',
+    filename: 'js/[name].[hash].js',
     publicPath: '/'
   },
   debug: true,

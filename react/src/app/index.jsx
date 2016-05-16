@@ -5,17 +5,23 @@ import { Provider } from 'react-redux'
 import { syncHistoryWithStore } from 'react-router-redux'
 import DevTools from './containers/DevTools'
 import { App, NotFound, Home, Users, User } from './components/index.jsx'
+import { loadAuthFromStorage }  from './actions/auth'
 import configureStore from './store/configureStore'
 
 const store = configureStore()
 
 const history = syncHistoryWithStore(browserHistory, store)
 
+const onEnter = (nextState, replace, callback) => {
+  store.dispatch(loadAuthFromStorage())
+  callback()
+}
+
 const routes = (
   <Provider store={store}>
     <div>
       <Router history={history}>
-        <Route path="/" component={App}>
+        <Route path="/" component={App} onEnter={onEnter}>
           <IndexRoute component={Home} />
           <Route path="users" component={Users}>
             <Route path=":userId" component={User}/>

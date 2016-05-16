@@ -10,8 +10,9 @@ const loginRequest = () => ({
     type: LOGIN_REQUEST
 })
 
-const loginSuccess = () => ({ 
-    type: LOGIN_SUCCESS
+const loginSuccess = (token) => ({
+    type: LOGIN_SUCCESS,
+    token
 })
 
 const loginFailure = () => ({
@@ -47,7 +48,7 @@ export function login (username, password) {
         .then(parseJSON)
         .then(json => {
           localStorage.setItem('token', json.token)
-          dispatch(loginSuccess())
+          dispatch(loginSuccess(json.token))
           resolve({ username, password })
         })
         .catch(error => {
@@ -55,5 +56,14 @@ export function login (username, password) {
           parseJSON(error.response).then(json => {reject({ ...json, _error: json.non_field_errors })})
         })
     })
+  }
+}
+
+export function loadAuthFromStorage() {
+  return function(dispatch) {
+    const token = localStorage.getItem('token')
+    if (token) {
+      dispatch(loginSuccess(token))
+    }
   }
 }
