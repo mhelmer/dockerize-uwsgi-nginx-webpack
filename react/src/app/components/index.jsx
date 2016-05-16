@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { AuthPanel } from './auth.jsx'
+import css from '../styles/main.scss'
 
 export const NotFound = () => (
   <h1>Not Found</h1>

@@ -41,6 +41,10 @@ var webpackConfig = {
               }
             }
         ])
+      },
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
       }
     ]
   },
