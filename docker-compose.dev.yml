@@ -1,5 +1,4 @@
 django:
-    restart: always
     build: ./django
     volumes:
         - ./django/src:/srv/django
