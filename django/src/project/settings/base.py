@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'rest_framework_swagger',
+
+    'users',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -139,6 +141,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 SWAGGER_SETTINGS = {

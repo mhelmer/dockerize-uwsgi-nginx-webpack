@@ -15,26 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.contrib.auth.models import User
 
 from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.authtoken.views import obtain_auth_token
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import routers, response, schemas
 
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
 
-from .serializers import UserSerializer
+from users.urls import router as user_router
 
 
-class UserViewSet(ReadOnlyModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    permission_classes = (IsAuthenticated,)
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
+class ContainerRouter(routers.DefaultRouter):
+    def register_router(self, router):
+        self.registry.extend(router.registry)
+
+router = ContainerRouter()
+router.register_router(user_router)
 
 
 @api_view()
@@ -43,8 +39,6 @@ def schema_view(request):
     generator = schemas.SchemaGenerator(title='API')
     return response.Response(generator.get_schema(request=request))
 
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 
 urlpatterns = [
     url(r'^api-docs/', schema_view),
