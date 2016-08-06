@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -137,4 +139,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+}
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+    'USE_SESSION_AUTH': True,
 }

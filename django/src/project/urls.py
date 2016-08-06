@@ -15,30 +15,42 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-
 from django.contrib.auth.models import User
+
+from rest_framework.decorators import api_view, renderer_classes
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.authtoken.views import obtain_auth_token
-from rest_framework.permissions import AllowAny
-from .serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import routers, response, schemas
 
-from rest_framework import routers
+from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
+
+from .serializers import UserSerializer
 
 
 class UserViewSet(ReadOnlyModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
+
+@api_view()
+@renderer_classes([OpenAPIRenderer, SwaggerUIRenderer])
+def schema_view(request):
+    generator = schemas.SchemaGenerator(title='API')
+    return response.Response(generator.get_schema(request=request))
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
+    url(r'^api-docs/', schema_view),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
+    url(r'^api-auth/',
+        include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-token-auth/', obtain_auth_token),
 ]

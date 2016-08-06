@@ -2,3 +2,4 @@ Django==1.9.9
 uWSGI==2.0.13
 psycopg2
 djangorestframework==3.4.3
+django-rest-swagger==2.0.3
