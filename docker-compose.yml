@@ -5,6 +5,8 @@ django:
         - /srv/django/static
     expose:
         - "8000"
+    environment:
+        DJANGO_SETTINGS_MODULE: project.settings.prod
     links:
         - db:db
 

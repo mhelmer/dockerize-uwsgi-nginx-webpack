@@ -4,6 +4,8 @@ django:
         - ./django/src:/srv/django
     expose:
         - "8000"
+    environment:
+        DJANGO_SETTINGS_MODULE: project.settings.dev
     links:
         - db:db
 
