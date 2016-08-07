@@ -9,8 +9,7 @@ RUN pip install --no-cache-dir -r /usr/src/app/requirements.txt
 # Create django user, will own the Django app
 RUN useradd -s /bin/bash --uid 1000 --home-dir /srv/django django
 
-# Add code
-COPY ./src /srv/django
+COPY ./src/requirements.txt /srv/django/
 
 WORKDIR /srv/django
 RUN chown -R django:django .
@@ -22,6 +21,12 @@ RUN /bin/bash -c "virtualenv /srv/django/.env \
 
 
 EXPOSE 8000
+
+# Add code
+COPY ./src /srv/django
+USER root
+RUN chown -R django:django .
+USER django
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
 # Execute start script
