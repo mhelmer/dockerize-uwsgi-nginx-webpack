@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'djcelery',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -149,3 +150,6 @@ SWAGGER_SETTINGS = {
     'LOGOUT_URL': 'rest_framework:logout',
     'USE_SESSION_AUTH': True,
 }
+
+BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'

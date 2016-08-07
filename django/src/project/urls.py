@@ -44,6 +44,7 @@ urlpatterns = [
     url(r'^api-docs/', schema_view),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
+    url(r'^api/', include('users.urls')),
     url(r'^api-auth/',
         include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api-token-auth/', obtain_auth_token),
