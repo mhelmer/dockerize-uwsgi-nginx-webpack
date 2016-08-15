@@ -1,27 +1,16 @@
 import fetch from 'isomorphic-fetch'
 import { checkStatus, parseJSON } from '../fetch.js'
+import makeActionCreator from './makeActionCreator.js'
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
-const loginRequest = () => ({ 
-    type: LOGIN_REQUEST
-})
-
-const loginSuccess = (token) => ({
-    type: LOGIN_SUCCESS,
-    token
-})
-
-const loginFailure = () => ({
-  type: LOGIN_FAILURE
-})
-
-const logoutSuccess = () => ({
-  type: LOGOUT_SUCCESS
-})
+const loginRequest = makeActionCreator(LOGIN_REQUEST)
+const loginSuccess = makeActionCreator(LOGIN_SUCCESS, 'token')
+const loginFailure = makeActionCreator(LOGIN_FAILURE)
+const logoutSuccess = makeActionCreator(LOGOUT_SUCCESS)
 
 export function logout (username, password) {
   return function (dispatch) {
