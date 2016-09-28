@@ -1,0 +1,21 @@
+version: '2'
+services:
+    django:
+        environment:
+            DJANGO_SETTINGS_MODULE: project.settings.prod
+
+    celery:
+        environment:
+            DJANGO_SETTINGS_MODULE: project.settings.prod
+
+    nginx:
+        build: ./nginx
+        volumes_from:
+            - django
+            - react
+
+    react:
+        environment:
+            NODE_ENV: production
+        volumes:
+            - /srv/react/dist

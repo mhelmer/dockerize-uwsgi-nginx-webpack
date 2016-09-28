@@ -1,0 +1,28 @@
+version: '2'
+services:
+    django:
+        volumes:
+            - ./django/src:/srv/django
+        environment:
+            DJANGO_SETTINGS_MODULE: project.settings.dev
+
+    celery:
+        volumes_from:
+            - django
+        environment:
+            DJANGO_SETTINGS_MODULE: project.settings.dev
+
+    nginx:
+        ports:
+            - "8080:80"
+
+    react:
+        volumes:
+            - ./react/src:/srv/react
+        ports:
+            - "8000:8000"
+        links:
+            - nginx:nginx
+    db:
+        expose:
+            - "5432"

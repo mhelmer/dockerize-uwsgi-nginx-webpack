@@ -1,0 +1,7 @@
+version: '2'
+services:
+    django:
+        build: ./django
+        image: django-image
+        expose:
+            - "8000"

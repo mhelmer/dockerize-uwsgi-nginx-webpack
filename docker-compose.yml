@@ -1,49 +1,40 @@
-django:
-    restart: always
-    build: ./django
-    volumes:
-        - /srv/django/static
-    expose:
-        - "8000"
-    environment:
-        DJANGO_SETTINGS_MODULE: project.settings.prod
-    links:
-        - db:db
-        - rabbitmq:rabbitmq
+version: '2'
+services:
+    django:
+        extends:
+            file: common.yml
+            service: django
+        volumes:
+            - static:/srv/django/static
+        links:
+            - db:db
+            - rabbitmq:rabbitmq
 
-celery:
-    build: ./django
-    volumes_from:
-        - django
-    expose:
-        - "8000"
-    environment:
-        DJANGO_SETTINGS_MODULE: project.settings.prod
-    links:
-        - db:db
-        - rabbitmq:rabbitmq
-    command: ./manage.py celery worker -l warning
+    celery:
+        image: django-image
+        links:
+            - db:db
+            - rabbitmq:rabbitmq
+        command: celery -A project worker -l warning
 
-nginx:
-    build: ./nginx
-    ports:
-        - "8080:80"
-    links:
-        - django:django
-    volumes_from:
-        - django
-        - react
+    nginx:
+        build: ./nginx
+        links:
+            - django:django
+        volumes_from:
+            - django
 
-react:
-    build: ./react
-    volumes:
-        - /srv/react/dist
+    react:
+        build: ./react
 
-db:
-    image: postgres
+    db:
+        image: postgres
 
-rabbitmq:
-    image: rabbitmq:3.6
-    environment:
-        RABBITMQ_DEFAULT_USER: user
-        RABBITMQ_DEFAULT_PASS: password
+    rabbitmq:
+        image: rabbitmq:3.6
+        environment:
+            RABBITMQ_DEFAULT_USER: user
+            RABBITMQ_DEFAULT_PASS: password
+
+volumes:
+    static: {}
