@@ -17,10 +17,10 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework import routers, response, schemas
 
 from rest_framework_swagger.renderers import OpenAPIRenderer, SwaggerUIRenderer
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 from users.urls import router as user_router
 
@@ -47,5 +47,7 @@ urlpatterns = [
     url(r'^api/', include('users.urls')),
     url(r'^api-auth/',
         include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api-token-auth/', obtain_auth_token),
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
+
 ]

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
@@ -141,6 +142,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
@@ -153,3 +155,9 @@ SWAGGER_SETTINGS = {
 
 BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': timedelta(days=2),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+}
