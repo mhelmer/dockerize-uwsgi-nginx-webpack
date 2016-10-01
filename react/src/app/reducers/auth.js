@@ -8,7 +8,6 @@ export function auth (state = {
     case LOGIN_REQUEST:
       return {
         ...state,
-        token: null,
         isFetching: true,
         isAuthenticated: false
       }
@@ -16,6 +15,7 @@ export function auth (state = {
       return {
         ...state,
         token: action.token,
+        payload: action.payload,
         isFetching: false,
         isAuthenticated: true
       }
@@ -23,6 +23,7 @@ export function auth (state = {
       return {
         ...state,
         token: null,
+        payload: null,
         isFetching: false,
         isAuthenticated: false
       }
@@ -30,6 +31,7 @@ export function auth (state = {
       return {
         ...state,
         token: null,
+        payload: null,
         isFetching: false,
         isAuthenticated: false
       }

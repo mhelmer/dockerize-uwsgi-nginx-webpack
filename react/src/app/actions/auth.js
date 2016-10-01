@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import jwtDecode from 'jwt-decode'
 import { checkStatus, parseJSON } from '../fetch.js'
 import makeActionCreator from './makeActionCreator.js'
 
@@ -8,7 +9,7 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'
 
 const loginRequest = makeActionCreator(LOGIN_REQUEST)
-const loginSuccess = makeActionCreator(LOGIN_SUCCESS, 'token')
+const loginSuccess = makeActionCreator(LOGIN_SUCCESS, 'token', 'payload')
 const loginFailure = makeActionCreator(LOGIN_FAILURE)
 const logoutSuccess = makeActionCreator(LOGOUT_SUCCESS)
 
@@ -37,7 +38,7 @@ export function login (username, password) {
         .then(parseJSON)
         .then(json => {
           localStorage.setItem('token', json.token)
-          dispatch(loginSuccess(json.token))
+          dispatch(loginSuccess(json.token, jwtDecode(json.token)))
           resolve({ username, password })
         })
         .catch(error => {
@@ -52,7 +53,7 @@ export function loadAuthFromStorage() {
   return function(dispatch) {
     const token = localStorage.getItem('token')
     if (token) {
-      dispatch(loginSuccess(token))
+      dispatch(loginSuccess(token, jwtDecode(token)))
     }
   }
 }
