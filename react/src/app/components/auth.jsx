@@ -3,28 +3,43 @@ import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { login, logout } from '../actions/auth.js'
 
-const submit = (values, dispatch) => dispatch(login(values.username, values.password))
+/* eslint-disable */
+export const domOnlyProps = ({
+  initialValue,
+  autofill,
+  onUpdate,
+  valid,
+  invalid,
+  dirty,
+  pristine,
+  active,
+  touched,
+  visited,
+  autofilled,
+  error,
+  ...domProps }) => domProps
+/* eslint-enable */
 
 const SubmitValidationForm = ({ fields: {username, password}, error, resetForm, handleSubmit, submitting }) => (
-  <form onSubmit={handleSubmit(submit)}>
+  <form onSubmit={handleSubmit}>
     <div>
-      <label>Username</label>
+      <label htmlFor="username">Username</label>
       <div>
-        <input type="text" placeholder="Username" {...username}/>
+        <input name={username} type="text" placeholder="Username" {...domOnlyProps(username)}/>
       </div>
       {username.touched && username.error && <div>{username.error}</div>}
     </div>
     <div>
-      <label>Password</label>
+      <label htmlFor="password">Password</label>
       <div>
-        <input type="password" placeholder="Password" {...password}/>
+        <input name="password" type="password" placeholder="Password" {...domOnlyProps(password)}/>
       </div>
       {password.touched && password.error && <div>{password.error}</div>}
     </div>
     {error && <div>{error}</div>}
     <div>
       <button type="submit" disabled={submitting}>
-        {submitting ? <i/> : <i/>} Log In
+        Log In
       </button>
       <button type="button" disabled={submitting} onClick={resetForm}>
         Clear Values
@@ -34,9 +49,9 @@ const SubmitValidationForm = ({ fields: {username, password}, error, resetForm, 
 )
 
 SubmitValidationForm.propTypes = {
-  fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.string,
+  fields: PropTypes.object.isRequired,
   resetForm: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
@@ -46,10 +61,6 @@ const LoginForm = reduxForm({
   fields: ['username', 'password']
 })(SubmitValidationForm)
 
-const Login = ({ handleClick }) => (
-  <button onClick={() => handleClick('username', 'password')}>Login</button>
-)
-
 const Logout = ({ handleClick }) => (
   <button onClick={() => handleClick()}>Logout</button>
 )
@@ -57,7 +68,7 @@ const Logout = ({ handleClick }) => (
 
 const LoginLogout = ({ isAuthenticated, handleLogin, handleLogout }) => (
   <div>
-    { isAuthenticated ? <Logout handleClick={handleLogout} /> : <LoginForm /> }
+    { isAuthenticated ? <Logout handleClick={handleLogout} /> : <LoginForm onSubmit={handleLogin}/> }
   </div>
 )
 
