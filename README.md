@@ -37,14 +37,28 @@ Usage
 
 If you decide to use this, I would suggest that you keep `django/src` and `react/src` in separate repos or submodules, but that's a matter of preference.
 
-### Dev compose-file
+### Develpment
+
+For development, the `docker-compose.override.yml` is provided. It is used to set up overrides suitable for development, such as mounting `{django,react}/src` in their respective containers and loading the dev configs.
 
 ```bash
-docker-compose -f docker-compose.dev.yml build
+docker-compose  build
 
-docker-compose -f docker-compose.dev.yml run django ./bootstrap-dev
-docker-compose -f docker-compose.dev.yml run react npm install
+# New docker volumes are created with root as owner.
+docker-compose run nginx chown -R 1000:1000 /srv/*
 
-docker-compose -f docker-compose.dev.yml up
+docker-compose run django ./bootstrap-dev
+docker-compose run react npm install
+
+docker-compose up
 ```
 
+### Production
+
+To use the production compose file you will need to tell `docker-compose` to use the production compose file:
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml <args>
+```
+
+Not that this configuration is not suitable for production since it is not running HTTPS. You could for example use [JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) with [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) to achieve this.
