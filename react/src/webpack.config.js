@@ -9,6 +9,7 @@ var webpackConfig = {
     bundle: [
       'webpack-dev-server/client?http://localhost:8000',
       'webpack/hot/only-dev-server',
+      'react-hot-loader/patch',
       'babel-polyfill',
       './app/index.jsx'
     ]
@@ -24,19 +25,9 @@ var webpackConfig = {
     loaders: [
       {
         test: /.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: combineLoaders([
-            {
-              loader: 'react-hot',
-              include: path.join(__dirname, 'app'),
-              exclude: /node_modules/
-            },
-            {
-              loader:  'babel-loader',
-              include: path.join(__dirname, 'app'),
-              exclude: /node_modules/
-            }
-        ])
+        include: path.join(__dirname, 'app'),
+        exclude: /node_modules/,
+        loaders: ['babel']
       },
       {
         test: /\.scss$/,

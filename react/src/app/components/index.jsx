@@ -40,7 +40,6 @@ export const UserList = ({users, children}) => (
         </li>
       )) }
     </ul>
-
     {children}
   </div>
 )
