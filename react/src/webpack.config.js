@@ -34,11 +34,7 @@ var webpackConfig = {
             {
               loader:  'babel-loader',
               include: path.join(__dirname, 'app'),
-              exclude: /node_modules/,
-              query: {
-                presets: ['es2015', 'react'],
-                plugins: ['transform-object-rest-spread']
-              }
+              exclude: /node_modules/
             }
         ])
       },
