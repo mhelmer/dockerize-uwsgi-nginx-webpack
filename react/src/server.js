@@ -6,7 +6,13 @@ var compiler = webpack(config);
 
 var server = new WebpackDevServer(compiler, {
   proxy: {
-    '/((api((-token)?-auth|-docs)?)|static|media|admin)($|/*)': {
+    '/api/**': {
+      target: 'http://nginx'
+    },
+    '/media/**': {
+      target: 'http://nginx'
+    },
+    '/api-token-auth/**': {
       target: 'http://nginx'
     }
   },

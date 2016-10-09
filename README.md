@@ -53,6 +53,8 @@ docker-compose run react npm install
 docker-compose up
 ```
 
+Browse the frontend on port `8000` and django routes (eg admin, api) on port `8080`.
+
 ### Production
 
 To use the production compose file you will need to tell `docker-compose` to use the production compose file:
