@@ -9,7 +9,6 @@ services:
             DJANGO_SETTINGS_MODULE: project.settings.prod
 
     nginx:
-        build: ./nginx
         volumes_from:
             - django
             - react
