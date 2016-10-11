@@ -9,11 +9,14 @@ services:
             DJANGO_SETTINGS_MODULE: project.settings.prod
 
     nginx:
+        ports:
+            - "80:80"
         volumes_from:
             - django
             - react
 
     react:
+        command: webpack --config webpack.config.prod.js
         environment:
             NODE_ENV: production
         volumes:

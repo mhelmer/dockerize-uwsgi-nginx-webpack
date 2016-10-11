@@ -53,7 +53,12 @@ export function loadAuthFromStorage() {
   return function(dispatch) {
     const token = localStorage.getItem('token')
     if (token) {
-      dispatch(loginSuccess(token, jwtDecode(token)))
+        try {
+          const payload = jwtDecode(token)
+          dispatch(loginSuccess(token, payload))
+        } catch (e) {
+          localStorage.removeItem('token')
+        }
     }
   }
 }
