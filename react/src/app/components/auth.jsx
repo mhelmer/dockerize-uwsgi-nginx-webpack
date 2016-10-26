@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { login, logout } from '../actions/auth.js'
+import { loginRequest, logout } from '../actions/auth.js'
 
 /* eslint-disable */
 export const domOnlyProps = ({
@@ -50,7 +50,7 @@ const SubmitValidationForm = ({ fields: {username, password}, error, resetForm, 
 
 SubmitValidationForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.string,
+  error: PropTypes.array,
   fields: PropTypes.object.isRequired,
   resetForm: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
@@ -77,7 +77,9 @@ export const AuthPanel = connect(
     isAuthenticated: state.auth.isAuthenticated
   }),
   (dispatch) => ({
-    handleLogin: (username, password) => dispatch(login(username, password)),
+    handleLogin: values => new Promise(
+      (resolve, reject) => dispatch(loginRequest(values, resolve, reject))
+    ),
     handleLogout: () => dispatch(logout())
   })
 )(LoginLogout)

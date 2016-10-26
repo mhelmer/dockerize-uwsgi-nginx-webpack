@@ -1,17 +1,17 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from '../actions/auth.js'
+import * as actionTypes from '../constants/actionTypes'
 
 export function auth (state = {
     isFetching: false,
     isAuthenticated: false
   }, action) {
   switch (action.type) {
-    case LOGIN_REQUEST:
+    case actionTypes.LOGIN_REQUEST:
       return {
         ...state,
         isFetching: true,
         isAuthenticated: false
       }
-    case LOGIN_SUCCESS:
+    case actionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         token: action.token,
@@ -19,7 +19,7 @@ export function auth (state = {
         isFetching: false,
         isAuthenticated: true
       }
-    case LOGIN_FAILURE:
+    case actionTypes.LOGIN_FAILURE:
       return {
         ...state,
         token: null,
@@ -27,7 +27,7 @@ export function auth (state = {
         isFetching: false,
         isAuthenticated: false
       }
-    case LOGOUT_SUCCESS:
+    case actionTypes.LOGOUT_SUCCESS:
       return {
         ...state,
         token: null,
