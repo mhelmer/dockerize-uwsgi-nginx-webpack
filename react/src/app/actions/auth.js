@@ -1,5 +1,7 @@
+import jwtDecode from 'jwt-decode'
 import makeActionCreator from './makeActionCreator.js'
 import * as actionTypes from '../constants/actionTypes'
+import * as Storage from '../storage'
 
 export const loginRequest = makeActionCreator(actionTypes.LOGIN_REQUEST, 'values', 'resolve', 'reject')
 export const loginSuccess = makeActionCreator(actionTypes.LOGIN_SUCCESS, 'token', 'payload')
@@ -15,13 +17,15 @@ export function logout (username, password) {
 
 export function loadAuthFromStorage() {
   return function(dispatch) {
-    const token = localStorage.getItem('token')
+    const token = Storage.getAuthToken()
+    console.log(token)
     if (token) {
         try {
           const payload = jwtDecode(token)
           dispatch(loginSuccess(token, payload))
         } catch (e) {
-          localStorage.removeItem('token')
+          console.log(e)
+          Storage.removeAuthToken()
         }
     }
   }

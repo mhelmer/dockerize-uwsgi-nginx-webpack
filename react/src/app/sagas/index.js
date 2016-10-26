@@ -4,11 +4,12 @@ import * as actionTypes from '../constants/actionTypes'
 import * as actionCreators from '../actions/auth'
 import jwtDecode from 'jwt-decode'
 import * as Api from '../api'
+import * as Storage from '../storage'
 
 function* authProcedure({ values, resolve, reject }) {
  try {
     const json = yield call(Api.authenticate, values.username, values.password)
-    localStorage.setItem('token', json.token)
+    yield call(Storage.setAuthToken, json.token)
     resolve(json)
     yield put(actionCreators.loginSuccess(json.token, jwtDecode(json.token)))
   } catch (e) {
