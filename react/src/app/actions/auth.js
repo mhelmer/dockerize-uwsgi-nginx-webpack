@@ -18,13 +18,11 @@ export function logout (username, password) {
 export function loadAuthFromStorage() {
   return function(dispatch) {
     const token = Storage.getAuthToken()
-    console.log(token)
     if (token) {
         try {
           const payload = jwtDecode(token)
           dispatch(loginSuccess(token, payload))
         } catch (e) {
-          console.log(e)
           Storage.removeAuthToken()
         }
     }

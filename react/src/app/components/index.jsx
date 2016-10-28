@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { AuthPanel } from './auth.jsx'
+import { getAllUsers } from '../reducers'
 import css from '../styles/main.scss'
 
 export const NotFound = () => (
@@ -44,18 +45,10 @@ export const UserList = ({users, children}) => (
   </div>
 )
 
-export const Users = connect((state, ownProps) => ({
-  ...ownProps,
-  users: state.users.items
-}))(UserList)
+export const Users = connect(state => ({ users: getAllUsers(state) }))(UserList)
 
-
-export const User = React.createClass({
-  render() {
-    return (
-      <div>
-        <h2>{ this.props.params.userId }</h2>
-      </div>
-    )
-  }
-})
+export const User = ({ params }) => (
+  <div>
+    <h2>{ params.userId }</h2>
+  </div>
+)

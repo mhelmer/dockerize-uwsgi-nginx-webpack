@@ -1,15 +1,18 @@
 import { routerReducer } from 'react-router-redux'
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
-import { users } from './users'
-import auth from './auth'
+import users, * as fromUsers from './users'
+import auth, * as fromAuth from './auth'
 
 
 const rootReducer = combineReducers({
   routing: routerReducer,
   form: formReducer,
   auth,
-  users
+  users,
 })
 
 export default rootReducer
+
+export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth)
+export const getAllUsers = state => fromUsers.getAll(state.users)

@@ -32,3 +32,5 @@ const auth = combineReducers({
 })
 
 export default auth
+
+export const getIsAuthenticated = state => state.isAuthenticated
