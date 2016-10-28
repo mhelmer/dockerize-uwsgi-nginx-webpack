@@ -1,16 +1,5 @@
 import * as actionTypes from '../constants/actionTypes'
-
-const updateObject = (oldObject, newValues) => ({
-  ...oldObject,
-  ...newValues,
-})
-
-const createReducer = (intialState, handlers) => (state = intialState, action) => {
-  if (handlers.hasOwnProperty(action.type)) {
-    return handlers[action.type](state, action)
-  }
-  return state
-}
+import { updateObject, createReducer } from './utils'
 
 const loginRequest = (state, action) => updateObject(state, {
   isFetching: true,
