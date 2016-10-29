@@ -1,4 +1,19 @@
 body {
-  background-color: #fff;
-  color: #000;
+  background-color: #fbf1c7;
+  color: #3c3836;
+  font-family: sans-serif;
+}
+
+a, a:visited {
+  color: #076678;
+  text-decoration: none;
+  font-weight: 600;
+}
+a:hover {
+ color: #458588;
+}
+h1, h2, h3, h4, h5, h6 {
+  background-color: #ebdbb2;
+  padding: .2em .5em;
+  border-radius: .5em;
 }
