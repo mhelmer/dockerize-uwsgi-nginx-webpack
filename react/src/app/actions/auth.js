@@ -7,24 +7,11 @@ export const loginRequest = makeActionCreator(actionTypes.LOGIN_REQUEST, 'values
 export const loginSuccess = makeActionCreator(actionTypes.LOGIN_SUCCESS, 'token', 'payload')
 export const loginFailure = makeActionCreator(actionTypes.LOGIN_FAILURE, 'error')
 export const logoutSuccess = makeActionCreator(actionTypes.LOGOUT_SUCCESS)
+export const loadAuthFromStorage = makeActionCreator(actionTypes.LOAD_AUTH)
 
 export function logout (username, password) {
   return function (dispatch) {
     localStorage.removeItem('token')
     return dispatch(logoutSuccess())
-  }
-}
-
-export function loadAuthFromStorage() {
-  return function(dispatch) {
-    const token = Storage.getAuthToken()
-    if (token) {
-        try {
-          const payload = jwtDecode(token)
-          dispatch(loginSuccess(token, payload))
-        } catch (e) {
-          Storage.removeAuthToken()
-        }
-    }
   }
 }
