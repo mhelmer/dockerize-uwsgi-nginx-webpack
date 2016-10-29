@@ -17,6 +17,9 @@ function* authProcedure({ values, resolve, reject }) {
     yield put(actionCreators.loginFailure(e.message))
   }
 }
+function* watchLogin() {
+  yield* takeEvery(actionTypes.LOGIN_REQUEST, authProcedure)
+}
 
 function* loadAuth() {
   try {
@@ -26,22 +29,24 @@ function* loadAuth() {
     yield call(Storage.removeAuthToken)
   }
 }
-function* logout (username, password) {
-  yield call(Storage.removeAuthToken)
-  yield put(actionCreators.logoutSuccess())
-}
 function* watchLoadAuth() {
   yield* takeEvery(actionTypes.LOAD_AUTH, loadAuth)
 }
-function* watchLogin() {
-  yield* takeEvery(actionTypes.LOGIN_REQUEST, authProcedure)
+
+function* logout (username, password) {
+  yield call(Storage.removeAuthToken)
+  yield put(actionCreators.logoutSuccess())
 }
 function* watchLogout() {
   yield* takeEvery(actionTypes.LOGOUT_REQUEST, logout)
 }
 
 function* rootSaga() {
-  yield [fork(watchLoadAuth), fork(watchLogin), fork(watchLogout)]
+  yield [
+    fork(watchLoadAuth),
+    fork(watchLogin),
+    fork(watchLogout),
+  ]
 }
 
 export default rootSaga
