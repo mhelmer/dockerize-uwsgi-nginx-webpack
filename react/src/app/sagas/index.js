@@ -26,15 +26,22 @@ function* loadAuth() {
     yield call(Storage.removeAuthToken)
   }
 }
+function* logout (username, password) {
+  yield call(Storage.removeAuthToken)
+  yield put(actionCreators.logoutSuccess())
+}
 function* watchLoadAuth() {
   yield* takeEvery(actionTypes.LOAD_AUTH, loadAuth)
 }
 function* watchLogin() {
   yield* takeEvery(actionTypes.LOGIN_REQUEST, authProcedure)
 }
+function* watchLogout() {
+  yield* takeEvery(actionTypes.LOGOUT_REQUEST, logout)
+}
 
 function* rootSaga() {
-  yield [fork(watchLoadAuth), fork(watchLogin)]
+  yield [fork(watchLoadAuth), fork(watchLogin), fork(watchLogout)]
 }
 
 export default rootSaga

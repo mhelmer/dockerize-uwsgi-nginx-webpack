@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { loginRequest, logout } from '../actions/auth.js'
+import { loginRequest, logoutRequest } from '../actions/auth.js'
 import { getIsAuthenticated } from '../reducers'
 
 /* eslint-disable */
@@ -81,7 +81,7 @@ const mapDispatchToProps = dispatch => ({
   handleLogin: values => new Promise(
     (resolve, reject) => dispatch(loginRequest(values, resolve, reject))
   ),
-  handleLogout: () => dispatch(logout())
+  handleLogout: () => dispatch(logoutRequest())
 })
 
 export const AuthPanel = connect(mapStateToProps, mapDispatchToProps)(LoginLogout)
