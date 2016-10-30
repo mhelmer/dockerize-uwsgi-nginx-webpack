@@ -1,9 +1,13 @@
 import React from 'react'
 import { Router, Route, IndexRoute } from 'react-router'
-import { App, NotFound, Home, Users, User } from '../components/index.jsx'
+import Home from './Home'
+import Layout from './Layout'
+import NotFound from './NotFound'
+import User from './User'
+import Users from './Users'
 
 const routes = (
-  <Route path="/" component={App}>
+  <Route path="/" component={Layout}>
     <IndexRoute component={Home} />
     <Route path="users" component={Users}>
       <Route path=":userId" component={User}/>
