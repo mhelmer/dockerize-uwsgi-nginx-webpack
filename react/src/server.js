@@ -14,6 +14,9 @@ var server = new WebpackDevServer(compiler, {
     },
     '/api-token-auth/**': {
       target: 'http://nginx'
+    },
+    '/api-token-refresh/**': {
+      target: 'http://nginx'
     }
   },
   publicPath: config.output.publicPath,

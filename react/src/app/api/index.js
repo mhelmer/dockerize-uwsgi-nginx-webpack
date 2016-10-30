@@ -20,3 +20,19 @@ export const authenticate = (username, password) => (
          .then(json => { throw new ApiError({ ...json, _error: json.non_field_errors }) })
   )
 )
+
+export const tokenRefresh = (payload) => (
+  fetch('/api-token-refresh/', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+  .then(checkStatus)
+  .then(parseJSON)
+  .catch(e => parseJSON(e.response)
+         .then(json => { throw new ApiError({ ...json, _error: json.non_field_errors }) })
+  )
+)

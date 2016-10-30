@@ -9,7 +9,6 @@ import App from './containers/Root.js'
 
 
 const store = configureStore()
-store.dispatch(loadAuthFromStorage())
 
 const history = syncHistoryWithStore(browserHistory, store)
 
