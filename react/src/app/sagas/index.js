@@ -9,7 +9,7 @@ import * as Storage from '../storage'
 function* authenticate(token, loginAction) {
   try {
     const json = yield token ? call(Api.tokenRefresh, { token })
-      : call(Api.authenticate, loginAction.values.username, loginAction.values.password)
+      : call(Api.authenticate, loginAction.values)
 
     !token && loginAction.resolve(json)
     yield call(Storage.setAuthToken, json.token)
