@@ -17,3 +17,18 @@ h1, h2, h3, h4, h5, h6 {
   padding: .2em .5em;
   border-radius: .5em;
 }
+
+.root {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.signed-in-user {
+  display: inline-block;
+}
+.logout-button {
+  float: right;
+}
+.auth-panel {
+  margin: 10px;
+}

@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { loginRequest, logoutRequest } from '../actions/auth.js'
+import { loginRequest } from '../actions/auth.js'
 import { getIsAuthenticated } from '../reducers'
+import UserBar from './UserBar'
 
 /* eslint-disable */
 export const domOnlyProps = ({
@@ -62,14 +63,9 @@ const LoginForm = reduxForm({
   fields: ['username', 'password']
 })(SubmitValidationForm)
 
-const Logout = ({ handleClick }) => (
-  <button onClick={() => handleClick()}>Logout</button>
-)
-
-
 const LoginLogout = ({ isAuthenticated, handleLogin, handleLogout }) => (
-  <div>
-    { isAuthenticated ? <Logout handleClick={handleLogout} /> : <LoginForm onSubmit={handleLogin}/> }
+  <div className="auth-panel">
+    { isAuthenticated ? <UserBar /> : <LoginForm onSubmit={handleLogin}/> }
   </div>
 )
 
@@ -81,7 +77,6 @@ const mapDispatchToProps = dispatch => ({
   handleLogin: values => new Promise(
     (resolve, reject) => dispatch(loginRequest(values, resolve, reject))
   ),
-  handleLogout: () => dispatch(logoutRequest())
 })
 
 export const AuthPanel = connect(mapStateToProps, mapDispatchToProps)(LoginLogout)

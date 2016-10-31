@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import css from '../styles/main.scss'
 
 const Layout = ({ children }) => (
-  <div>
+  <div className="root">
     <AuthPanel />
     <h1>Main Heading</h1>
     <ul>
