@@ -1,13 +1,13 @@
-const default_users = [
-  {id: 1, username: 'magnus'},
-  {id: 2, username: 'björn'},
-  {id: 3, username: 'sofia'},
-  {id: 4, username: 'lisbet'},
-  {id: 5, username: 'janola'}
-]
+import * as actionTypes from '../constants/actionTypes'
 
-const users = ( state = { items: default_users }, action) => {
+const users = ( state = { isFetching: false, items: [] }, action) => {
   switch (action.type) {
+    case actionTypes.FETCH_USERS.REQUEST:
+      return { ...state, isFetching: true }
+    case actionTypes.FETCH_USERS.SUCCESS:
+      return { ...state, isFetching: false, items: action.payload }
+    case actionTypes.FETCH_USERS.FAILURE:
+      return { ...state, isFetching: false }
     default:
       return state
   }
@@ -16,3 +16,4 @@ const users = ( state = { items: default_users }, action) => {
 export default users
 
 export const getAll = state => state.items
+export const getIsFetching = state => state.isFetching

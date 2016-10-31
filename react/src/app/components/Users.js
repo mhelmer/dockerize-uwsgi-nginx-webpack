@@ -1,22 +1,47 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { getAllUsers } from '../reducers'
+import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from '../reducers'
+import { fetchUsersRequest, isAuthenticated } from '../actions/user'
 
-const UserList = ({users, children}) => (
-  <div>
-    <h2>Users</h2>
-    <ul>
-      { users.map(user => (
-        <li key={user.id}>
-          <Link to={`/users/${user.id}`} activeClassName="active">{user.username}</Link>
-        </li>
-      )) }
-    </ul>
-    {children}
-  </div>
+const UserList = ({ users, children }) => (
+  <ul>
+    { users.map(user => (
+      <li key={user.id}>
+        <Link to={`/users/${user.id}`} activeClassName="active">{user.username}</Link>
+      </li>
+    )) }
+  </ul>
 )
 
-const Users = connect(state => ({ users: getAllUsers(state) }))(UserList)
+class Users extends Component {
+  componentDidMount () {
+    this.props.isAuthenticated && this.props.fetchUsersRequest()
+  }
+  componentDidUpdate(prevProps) {
+    !prevProps.isAuthenticated && this.props.isAuthenticated && this.props.fetchUsersRequest()
+  }
+  render () {
+    const { isFetching, users, children } = this.props
+    return (
+      <div>
+        <h2>Users</h2>
+        { users.length === 0 && isFetching ? <span>Loading...</span>
+          : <UserList users={users} />
+        }
+        {children}
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  isFetching: getIsFetchingUsers(state),
+  isAuthenticated: getIsAuthenticated(state),
+  users: getAllUsers(state),
+})
+const mapDispatchToProps = { fetchUsersRequest }
+
+Users = connect(mapStateToProps, mapDispatchToProps)(Users)
 
 export default Users
