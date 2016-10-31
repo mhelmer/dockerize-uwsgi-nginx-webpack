@@ -1,12 +1,8 @@
-import * as actionTypes from '../constants/actionTypes'
 import { combineReducers } from 'redux'
-import { updateObject, createReducer } from './utils'
+import * as actionTypes from '../constants/actionTypes'
+import { updateObject, createReducer, createIsFetching } from './utils'
 
-const isFetching = createReducer(false, {
-  [actionTypes.LOGIN.FAILURE]: () => false,
-  [actionTypes.LOGIN.REQUEST]: () => true,
-  [actionTypes.LOGIN.SUCCESS]: () => false,
-})
+const isFetching = createIsFetching(actionTypes.LOGIN)
 
 const isAuthenticated = createReducer(false, {
   [actionTypes.LOGIN.FAILURE]: () => false,

@@ -1,17 +1,17 @@
+import { combineReducers } from 'redux'
 import * as actionTypes from '../constants/actionTypes'
+import { createReducer, createIsFetching } from './utils'
 
-const users = ( state = { isFetching: false, items: [] }, action) => {
-  switch (action.type) {
-    case actionTypes.FETCH_USERS.REQUEST:
-      return { ...state, isFetching: true }
-    case actionTypes.FETCH_USERS.SUCCESS:
-      return { ...state, isFetching: false, items: action.payload }
-    case actionTypes.FETCH_USERS.FAILURE:
-      return { ...state, isFetching: false }
-    default:
-      return state
-  }
-}
+const isFetching = createIsFetching(actionTypes.FETCH_USERS)
+
+const items = createReducer([], {
+  [actionTypes.FETCH_USERS.SUCCESS]: (state, action) => action.payload,
+})
+
+const users = combineReducers({
+  isFetching,
+  items,
+})
 
 export default users
 
