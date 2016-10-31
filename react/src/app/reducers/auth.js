@@ -3,25 +3,25 @@ import { combineReducers } from 'redux'
 import { updateObject, createReducer } from './utils'
 
 const isFetching = createReducer(false, {
-  [actionTypes.LOGIN_FAILURE]: () => false,
-  [actionTypes.LOGIN_REQUEST]: () => true,
-  [actionTypes.LOGIN_SUCCESS]: () => false,
+  [actionTypes.LOGIN.FAILURE]: () => false,
+  [actionTypes.LOGIN.REQUEST]: () => true,
+  [actionTypes.LOGIN.SUCCESS]: () => false,
 })
 
 const isAuthenticated = createReducer(false, {
-  [actionTypes.LOGIN_FAILURE]: () => false,
-  [actionTypes.LOGIN_SUCCESS]: () => true,
-  [actionTypes.LOGOUT_SUCCESS]: () => false,
+  [actionTypes.LOGIN.FAILURE]: () => false,
+  [actionTypes.LOGIN.SUCCESS]: () => true,
+  [actionTypes.LOGOUT.SUCCESS]: () => false,
 })
 
 const payload = createReducer(null, {
-  [actionTypes.LOGIN_SUCCESS]: (state, action) => action.payload,
-  [actionTypes.LOGOUT_SUCCESS]: () => null,
+  [actionTypes.LOGIN.SUCCESS]: (state, action) => action.payload,
+  [actionTypes.LOGOUT.SUCCESS]: () => null,
 })
 
 const token = createReducer(null, {
-  [actionTypes.LOGIN_SUCCESS]: (state, action) => action.token,
-  [actionTypes.LOGOUT_SUCCESS]: () => null,
+  [actionTypes.LOGIN.SUCCESS]: (state, action) => action.token,
+  [actionTypes.LOGOUT.SUCCESS]: () => null,
 })
 
 const auth = combineReducers({

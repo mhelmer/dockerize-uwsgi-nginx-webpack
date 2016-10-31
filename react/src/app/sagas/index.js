@@ -45,12 +45,12 @@ function* authFlowSaga() {
     const token = yield call(Storage.getAuthToken)
     let loginAction
     if (!token) {
-      loginAction = yield take(actionTypes.LOGIN_REQUEST)
+      loginAction = yield take(actionTypes.LOGIN.REQUEST)
     }
 
     const { logoutAction } = yield race({
       authLoop: call(authLoop, { token, loginAction }),
-      logoutAction: take(actionTypes.LOGOUT_REQUEST),
+      logoutAction: take(actionTypes.LOGOUT.REQUEST),
     })
     if(logoutAction) {
       yield call(logout)
