@@ -46,6 +46,8 @@ function* authFlowSaga() {
     let loginAction
     if (!token) {
       loginAction = yield take(actionTypes.LOGIN.REQUEST)
+    } else {
+      yield put(actionCreators.loginRequest())
     }
 
     const { logoutAction } = yield race({
