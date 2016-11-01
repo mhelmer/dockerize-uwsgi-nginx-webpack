@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
-import { loginRequest } from '../actions/auth.js'
+import { loginRequest } from '../actions/auth'
 import { getIsAuthenticated } from '../reducers'
 import UserBar from './UserBar'
 

@@ -1,14 +1,15 @@
 import { takeEvery } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
 import * as actionTypes from '../constants/actionTypes'
+import * as actionCreators from '../actions/user'
 import * as Api from '../api'
 
 function* fetchUsers(action) {
   try {
     const payload = yield call(Api.fetchUsers)
-    yield put({ type: actionTypes.FETCH_USERS.SUCCESS, payload })
+    yield put(actionCreators.fetchUsersSuccess(payload))
   } catch (e) {
-    yield put({ type: actionTypes.FETCH_USERS.FAILURE, payload: e.message })
+    yield put(actionCreators.fetchUsersFailur(e.message))
   }
 }
 

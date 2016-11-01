@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Router } from 'react-router'
-import routes from './Routes.jsx'
+import routes from './Routes'
 import { getAllUsers } from '../reducers'
 
 const App = ({ history }) => (

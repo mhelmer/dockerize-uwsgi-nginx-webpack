@@ -1,6 +1,6 @@
 import React from 'react'
-import { AuthPanel } from './auth.jsx'
 import { Link } from 'react-router'
+import { AuthPanel } from './Auth'
 import css from '../styles/main.scss'
 
 const Layout = ({ children }) => (
