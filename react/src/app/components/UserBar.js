@@ -16,6 +16,8 @@ const SignedInPanel = ({ logoutRequest, userId }) => (
   </div>
 )
 SignedInPanel.propTypes = {
+  logoutRequest: PropTypes.func.isRequired,
+  userId: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = state => ({ userId: getUserId(state) })
