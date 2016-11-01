@@ -22,11 +22,12 @@ class Users extends Component {
     !prevProps.isAuthenticated && this.props.isAuthenticated && this.props.fetchUsersRequest()
   }
   render () {
-    const { isFetching, users, children } = this.props
+    const { isAuthenticated, isFetching, users, children } = this.props
     return (
       <div>
         <h2>Users</h2>
-        { users.length === 0 && isFetching ? <span>Loading...</span>
+        { !isAuthenticated ? <span>Log in to see users</span>
+          : users.length === 0 && isFetching ? <span>Loading...</span>
           : <UserList users={users} />
         }
         {children}
