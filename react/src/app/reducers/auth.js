@@ -30,4 +30,5 @@ const auth = combineReducers({
 export default auth
 
 export const getIsAuthenticated = state => state.isAuthenticated
-export const getUserId = state => state.payload.user_id
+export const getUserId = state => state.payload ? state.payload.user_id : null
+export const getIsFetching = state => state.isFetching
