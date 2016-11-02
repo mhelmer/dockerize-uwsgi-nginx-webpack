@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "node server.js",
-    "test": "jest"
+    "test": "jest --config jest.config.json",
+    "test:watch": "npm test -- --watch"
   },
   "author": "",
   "license": "UNLICENSED",
