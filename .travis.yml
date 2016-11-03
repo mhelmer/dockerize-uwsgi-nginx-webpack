@@ -5,9 +5,8 @@ language: python
 services:
   - docker
 
-before_install:
+install:
   - docker-compose -f docker-compose.yml build react
-  - docker ps -a
 
 script:
   - docker-compose -f docker-compose.yml run react npm run test
