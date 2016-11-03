@@ -26,36 +26,36 @@ describe('reducer utils', () => {
   })
   describe('createReducer', () => {
     it('gives intial state when handlers is empty', () => {
-      const reducer = createReducer('initialState', {})
-      expect(reducer(undefined, {})).toBe('initialState')
-    })
-    it('other actions will not change state', () => {
       const reducer = createReducer('initial state', {})
-        expect(reducer(undefined, { type: 'OTHER_ACTION' })).toBe('initial state')
+      expect(reducer(undefined, {})).toBe('initial state')
+    })
+    it('can handle other actions without changing state', () => {
+      const reducer = createReducer('initial state', {})
+      expect(reducer(undefined, { type: 'OTHER_ACTION' })).toBe('initial state')
     })
     it('can create simple reducer that handles one action', () => {
-      const reducer = createReducer('initialState', {
-        ['ACTION_TYPE']: () => 'nextState',
+      const reducer = createReducer('initial state', {
+        ['ACTION_TYPE']: () => 'next state',
       })
-      expect(reducer(undefined, {})).toBe('initialState')
-      expect(reducer(undefined, { type: 'ACTION_TYPE' })).toBe('nextState')
+      expect(reducer(undefined, {})).toBe('initial state')
+      expect(reducer(undefined, { type: 'ACTION_TYPE' })).toBe('next state')
     })
     it('can create reducer that handles action with payload', () => {
       const reducer = createReducer(null, {
         ['ACTION_TYPE']: (state, action) => action.payload,
       })
-        expect(
-          reducer(undefined, { type: 'ACTION_TYPE', payload: 'heavy load' })
-        ).toBe('heavy load')
+      expect(
+        reducer(undefined, { type: 'ACTION_TYPE', payload: 'heavy load' })
+      ).toBe('heavy load')
     })
     it('can create reducer that handles two actions', () => {
       const reducer = createReducer('initial state', {
-        ['ACTION_TYPE_1']: () => 'one state',
-        ['ACTION_TYPE_2']: () => 'two state'
+        ['ACTION_TYPE_1']: () => 'state one',
+        ['ACTION_TYPE_2']: () => 'state two'
       })
-        expect(reducer(undefined, {})).toEqual('initial state')
-        expect(reducer(undefined, { type: 'ACTION_TYPE_1' })).toBe('one state')
-        expect(reducer('some state', { type: 'ACTION_TYPE_2' })).toBe('two state')
+      expect(reducer(undefined, {})).toEqual('initial state')
+      expect(reducer(undefined, { type: 'ACTION_TYPE_1' })).toBe('state one')
+      expect(reducer('some state', { type: 'ACTION_TYPE_2' })).toBe('state two')
     })
   })
   describe('updateObject', () => {
