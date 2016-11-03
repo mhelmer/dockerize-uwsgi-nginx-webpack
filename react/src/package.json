@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --config jest.config.json",
+    "test:watch": "npm test -- --watch"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.8.0",
+    "babel-jest": "^16.0.0",
     "babel-loader": "^6.2.4",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-polyfill": "^6.8.0",
@@ -32,6 +34,7 @@
     "babel-preset-react": "^6.5.0",
     "css-loader": "^0.23.1",
     "html-webpack-plugin": "^2.16.1",
+    "jest": "^16.0.2",
     "node-sass": "^3.7.0",
     "react-hot-loader": "^3.0.0-beta.5",
     "redux-devtools": "^3.3.1",
