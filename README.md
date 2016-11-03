@@ -1,6 +1,8 @@
 dockerize-uwsgi-nginx-webpack
 =============================
 
+[![Build Status](https://travis-ci.org/mhelmer/dockerize-uwsgi-nginx-webpack.svg?branch=master)](https://travis-ci.org/mhelmer/dockerize-uwsgi-nginx-webpack)
+
 Current stack
 -------------
 
