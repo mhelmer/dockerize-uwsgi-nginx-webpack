@@ -63,7 +63,7 @@ const LoginForm = reduxForm({
   fields: [ 'username', 'password' ],
 })(SubmitValidationForm)
 
-const LoginLogout = ({ isAuthenticated, handleLogin, handleLogout }) => (
+const LoginLogout = ({ isAuthenticated, handleLogin }) => (
   <div className="auth-panel">
     { isAuthenticated ? <UserBar /> : <LoginForm onSubmit={handleLogin}/> }
   </div>

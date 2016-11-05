@@ -4,7 +4,7 @@ import * as actionTypes from '../constants/actionTypes'
 import * as actionCreators from '../actions/user'
 import * as Api from '../api'
 
-function* fetchUsers(action) {
+function* fetchUsers() {
   try {
     const payload = yield call(Api.fetchUsers)
     yield put(actionCreators.fetchUsersSuccess(payload))

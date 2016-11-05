@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, IndexRoute } from 'react-router'
+import { Route, IndexRoute } from 'react-router'
 import Home from './Home'
 import Layout from './Layout'
 import NotFound from './NotFound'

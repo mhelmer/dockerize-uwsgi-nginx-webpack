@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from '../reducers'
-import { fetchUsersRequest, isAuthenticated } from '../actions/user'
+import { fetchUsersRequest } from '../actions/user'
 
-const UserList = ({ users, children }) => (
+const UserList = ({ users }) => (
   <ul>
     { users.map(user => (
       <li key={user.id}>

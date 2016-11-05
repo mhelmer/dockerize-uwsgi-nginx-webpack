@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './store/configureStore'
-import { loadAuthFromStorage }  from './actions/auth'
 import App from './containers/Root.js'
 
 
