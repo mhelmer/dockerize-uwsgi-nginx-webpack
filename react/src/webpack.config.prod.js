@@ -7,7 +7,7 @@ var webpackConfig = {
   entry: {
     bundle: [
       'babel-polyfill',
-      './app/index.jsx'
+      './app/index.js'
     ]
   },
   output: {
