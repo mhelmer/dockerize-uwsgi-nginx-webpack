@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from '../reducers'
-import { fetchUsersRequest, isAuthenticated } from '../actions/user'
+import { fetchUsersRequest } from '../actions/user'
 
-const UserList = ({ users, children }) => (
+const UserList = ({ users }) => (
   <ul>
     { users.map(user => (
       <li key={user.id}>
@@ -15,13 +15,13 @@ const UserList = ({ users, children }) => (
 )
 
 class Users extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.isAuthenticated && this.props.fetchUsersRequest()
   }
   componentDidUpdate(prevProps) {
     !prevProps.isAuthenticated && this.props.isAuthenticated && this.props.fetchUsersRequest()
   }
-  render () {
+  render() {
     const { isAuthenticated, isFetching, users, children } = this.props
     return (
       <div>

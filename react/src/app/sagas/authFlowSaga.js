@@ -26,7 +26,7 @@ function* authenticate(token, loginAction) {
 const timeUntilRefresh = token => Math.max((jwtDecode(token).exp * 1000 - Date.now()) / 2, 0)
 
 function* authLoop({ token, loginAction }) {
-  while(true) {
+  for(;;) {
     token = yield call(authenticate, token, loginAction)
     if (token == null) {
       return
@@ -41,7 +41,7 @@ function* logout() {
 }
 
 function* authFlowSaga() {
-  while(true) {
+  for(;;) {
     const token = yield call(Storage.getAuthToken)
     let loginAction
     if (!token) {

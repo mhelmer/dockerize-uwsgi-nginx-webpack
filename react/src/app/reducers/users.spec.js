@@ -27,7 +27,7 @@ describe('user reducer', () => {
     })
   })
   describe('fetch users success', () => {
-    const state = users(undefined, actionCreators.fetchUsersSuccess([{ id: 1, username: 'username' }]))
+    const state = users(undefined, actionCreators.fetchUsersSuccess([ { id: 1, username: 'username' } ]))
 
     it('is not fetching', () => {
       expect(selectors.getIsFetching(state)).toEqual(false)

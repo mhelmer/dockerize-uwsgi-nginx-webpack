@@ -10,7 +10,7 @@ var webpackConfig = {
       'webpack/hot/only-dev-server',
       'react-hot-loader/patch',
       'babel-polyfill',
-      './app/index.jsx'
+      './app/index.js'
     ]
   },
   output: {

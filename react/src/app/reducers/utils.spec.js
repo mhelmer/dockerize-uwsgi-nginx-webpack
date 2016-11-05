@@ -51,7 +51,7 @@ describe('reducer utils', () => {
     it('can create reducer that handles two actions', () => {
       const reducer = createReducer('initial state', {
         ['ACTION_TYPE_1']: () => 'state one',
-        ['ACTION_TYPE_2']: () => 'state two'
+        ['ACTION_TYPE_2']: () => 'state two',
       })
       expect(reducer(undefined, {})).toEqual('initial state')
       expect(reducer(undefined, { type: 'ACTION_TYPE_1' })).toBe('state one')

@@ -4,7 +4,6 @@ import { AppContainer } from 'react-hot-loader'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './store/configureStore'
-import { loadAuthFromStorage }  from './actions/auth'
 import App from './containers/Root.js'
 
 
@@ -19,11 +18,11 @@ render(<AppContainer>
 if (module.hot) {
   module.hot.accept('./containers/Root.js', () => {
     const NextApp = require('./containers/Root.js').default
-     render(
+    render(
        <AppContainer>
          <NextApp store={store} history={history} />
        </AppContainer>,
        document.getElementById('app')
      )
-   })
- }
+  })
+}
