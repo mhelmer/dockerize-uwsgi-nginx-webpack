@@ -10,3 +10,4 @@ install:
 
 script:
   - docker-compose -f docker-compose.yml run react npm run test
+  - docker-compose -f docker-compose.yml run react npm run lint
