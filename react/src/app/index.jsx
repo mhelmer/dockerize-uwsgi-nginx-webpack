@@ -19,11 +19,11 @@ render(<AppContainer>
 if (module.hot) {
   module.hot.accept('./containers/Root.js', () => {
     const NextApp = require('./containers/Root.js').default
-     render(
+    render(
        <AppContainer>
          <NextApp store={store} history={history} />
        </AppContainer>,
        document.getElementById('app')
      )
-   })
- }
+  })
+}

@@ -22,7 +22,7 @@ export const domOnlyProps = ({
   ...domProps }) => domProps
 /* eslint-enable */
 
-const SubmitValidationForm = ({ fields: {username, password}, error, resetForm, handleSubmit, submitting }) => (
+const SubmitValidationForm = ({ fields: { username, password }, error, resetForm, handleSubmit, submitting }) => (
   <form onSubmit={handleSubmit}>
     <div>
       <label htmlFor="username">Username</label>
@@ -55,12 +55,12 @@ SubmitValidationForm.propTypes = {
   error: PropTypes.array,
   fields: PropTypes.object.isRequired,
   resetForm: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired
+  submitting: PropTypes.bool.isRequired,
 }
 
 const LoginForm = reduxForm({
   form: 'submitValidation',
-  fields: ['username', 'password']
+  fields: [ 'username', 'password' ],
 })(SubmitValidationForm)
 
 const LoginLogout = ({ isAuthenticated, handleLogin, handleLogout }) => (

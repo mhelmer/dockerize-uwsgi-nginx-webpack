@@ -15,13 +15,13 @@ const UserList = ({ users, children }) => (
 )
 
 class Users extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.isAuthenticated && this.props.fetchUsersRequest()
   }
   componentDidUpdate(prevProps) {
     !prevProps.isAuthenticated && this.props.isAuthenticated && this.props.fetchUsersRequest()
   }
-  render () {
+  render() {
     const { isAuthenticated, isFetching, users, children } = this.props
     return (
       <div>
