@@ -5,3 +5,4 @@ djangorestframework==3.4.3
 django-rest-swagger==2.0.3
 django-celery==3.1.17
 djangorestframework-jwt==1.8.0
+celery==3.1.24

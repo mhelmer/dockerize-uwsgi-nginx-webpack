@@ -1,0 +1,9 @@
+version: '2'
+services:
+    django:
+        environment:
+            DJANGO_SETTINGS_MODULE: project.settings.dev
+
+    celery:
+        environment:
+            DJANGO_SETTINGS_MODULE: project.settings.dev
