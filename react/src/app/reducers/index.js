@@ -19,3 +19,4 @@ export const getUserId = state => fromAuth.getUserId(state.auth)
 
 export const getAllUsers = state => fromUsers.getAll(state.users)
 export const getIsFetchingUsers = state => fromUsers.getIsFetching(state.users)
+export const getUser = (state, id) => fromUsers.getUser(state.users, id)

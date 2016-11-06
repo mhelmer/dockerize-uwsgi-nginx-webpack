@@ -1,21 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from '../../reducers'
 import { fetchUsersRequest } from '../../actions/user'
-
-export const UserList = ({ users, children }) => (
-  <div>
-    <ul>
-      { users.map(user => (
-        <li key={user.id}>
-          <Link to={`/users/${user.id}`} activeClassName="active">{user.username}</Link>
-        </li>
-      )) }
-    </ul>
-    { children }
-  </div>
-)
+import UserList from './UserList'
 
 class Users extends Component {
   componentDidMount() {

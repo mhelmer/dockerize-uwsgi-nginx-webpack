@@ -1,9 +1,15 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { getUser } from '../../reducers'
 
-const User = ({ params }) => (
+export const User = ({ user }) => (
   <div>
-    <h2>{ params.userId }</h2>
+    <h2>{ user ? user.username : 'Not Found'}</h2>
   </div>
 )
 
-export default User
+const VisibleUser = connect(
+  (state, { params }) => ({ user: getUser(state, parseInt(params.userId)) })
+)(User)
+
+export default VisibleUser
