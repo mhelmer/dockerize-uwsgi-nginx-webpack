@@ -16,6 +16,7 @@ export default rootReducer
 
 export const getIsAuthenticated = state => fromAuth.getIsAuthenticated(state.auth)
 export const getUserId = state => fromAuth.getUserId(state.auth)
+export const getCurrentUser = state => getUser(state, getUserId(state))
 
 export const getAllUsers = state => fromUsers.getAll(state.users)
 export const getIsFetchingUsers = state => fromUsers.getIsFetching(state.users)
