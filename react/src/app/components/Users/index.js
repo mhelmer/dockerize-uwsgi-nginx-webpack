@@ -1,18 +1,8 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 import { connect } from 'react-redux'
-import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from '../reducers'
-import { fetchUsersRequest } from '../actions/user'
-
-const UserList = ({ users }) => (
-  <ul>
-    { users.map(user => (
-      <li key={user.id}>
-        <Link to={`/users/${user.id}`} activeClassName="active">{user.username}</Link>
-      </li>
-    )) }
-  </ul>
-)
+import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from '../../reducers'
+import { fetchUsersRequest } from '../../actions/user'
+import UserList from './UserList'
 
 class Users extends Component {
   componentDidMount() {
@@ -28,12 +18,7 @@ class Users extends Component {
         <h2>Users</h2>
         { !isAuthenticated ? <span>Log in to see users</span>
           : users.length === 0 && isFetching ? <span>Loading...</span>
-          : (
-            <div>
-              <UserList users={users} />
-              { children }
-            </div>
-          )
+          : <UserList users={users} children={children} />
         }
       </div>
     )

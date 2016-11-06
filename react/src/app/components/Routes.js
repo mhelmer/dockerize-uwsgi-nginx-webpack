@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router'
 import Home from './Home'
 import Layout from './Layout'
 import NotFound from './NotFound'
-import User from './User'
+import User from './Users/User'
 import Users from './Users'
 
 const routes = (

@@ -16,4 +16,5 @@ const users = combineReducers({
 export default users
 
 export const getAll = state => state.items
+export const getUser = (state, id) => state.items.find(user => user.id === id)
 export const getIsFetching = state => state.isFetching
