@@ -28,9 +28,13 @@ class Users extends Component {
         <h2>Users</h2>
         { !isAuthenticated ? <span>Log in to see users</span>
           : users.length === 0 && isFetching ? <span>Loading...</span>
-          : <UserList users={users} />
+          : (
+            <div>
+              <UserList users={users} />
+              { children }
+            </div>
+          )
         }
-        {children}
       </div>
     )
   }
