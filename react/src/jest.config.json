@@ -3,6 +3,10 @@
   "collectCoverageFrom": [
     "**/*.{js,jsx}",
     "!**/node_modules/**",
-    "!**/vendor/**"
+    "!**/vendor/**",
+    "!dist/**",
+    "!coverage/**",
+    "!webpack.config.*",
+    "!server.js"
   ]
 }
