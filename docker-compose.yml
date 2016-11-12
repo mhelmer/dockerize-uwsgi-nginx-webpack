@@ -9,12 +9,14 @@ services:
         links:
             - db:db
             - rabbitmq:rabbitmq
+            - redis:redis
 
     celery:
         image: django-image
         links:
             - db:db
             - rabbitmq:rabbitmq
+            - redis:redis
         command: celery -A project worker -l warning
 
     nginx:
@@ -29,6 +31,9 @@ services:
 
     db:
         image: postgres
+
+    redis:
+        image: redis:3.2
 
     rabbitmq:
         image: rabbitmq:3.6
