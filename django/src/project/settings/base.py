@@ -153,7 +153,7 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': True,
 }
 
-BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
+CELERY_BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
 CELERY_RESULT_BACKEND = 'django-db'
 
 JWT_AUTH = {
