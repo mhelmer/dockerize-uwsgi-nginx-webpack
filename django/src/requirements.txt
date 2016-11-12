@@ -3,6 +3,6 @@ uWSGI==2.0.13
 psycopg2
 djangorestframework==3.4.3
 django-rest-swagger==2.0.3
-django-celery==3.1.17
 djangorestframework-jwt==1.8.0
-celery==3.1.24
+celery==4.0.0
+django-celery-results==1.0.1

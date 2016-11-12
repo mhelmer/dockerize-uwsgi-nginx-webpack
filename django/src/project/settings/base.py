@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'djcelery',
+    'django_celery_results',
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -154,7 +154,7 @@ SWAGGER_SETTINGS = {
 }
 
 BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERY_RESULT_BACKEND = 'django-db'
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': timedelta(minutes=10),
