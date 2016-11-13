@@ -1,4 +1,6 @@
 import fetch from 'isomorphic-fetch'
+import humps from 'humps'
+
 import { checkStatus, parseJSON } from '../fetch'
 import { getAuthToken } from '../storage'
 
@@ -20,12 +22,13 @@ const createFetch = (url, method) => payload => {
     url, {
       method,
       headers,
-      body: payload ? JSON.stringify(payload) : undefined,
+      body: payload ? JSON.stringify(humps.decamelizeKeys(payload)) : undefined,
     }
   )
   .then(checkStatus)
   .then(parseJSON)
-  .catch(e => { throw new ApiError(e.errors) })
+  .then(humps.camelizeKeys)
+  .catch(e => { throw new ApiError(humps.camelizeKeys(e.errors)) })
 }
 
 export default createFetch
