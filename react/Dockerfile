@@ -2,18 +2,17 @@ FROM node:4
 
 RUN npm install --quiet -g webpack
 
-RUN useradd -s /bin/bash --uid 1000 --home-dir /srv/react react
 COPY src/package.json /srv/react/
 
 WORKDIR /srv/react
-RUN chown -R react:react .
-USER react
+RUN chown -R node:node .
+USER node
 
 RUN npm install --quiet
 COPY src /srv/react
 USER root
-RUN chown -R react:react .
-USER react
+RUN chown -R node:node .
+USER node
 
 RUN webpack
 
