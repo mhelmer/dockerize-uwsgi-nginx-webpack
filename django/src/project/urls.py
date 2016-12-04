@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.http import HttpResponse
 
 from rest_framework.decorators import api_view, renderer_classes
 from rest_framework import routers, response, schemas
@@ -41,6 +42,7 @@ def schema_view(request):
 
 
 urlpatterns = [
+    url(r'^$', lambda request: HttpResponse()),
     url(r'^api-docs/', schema_view),
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
