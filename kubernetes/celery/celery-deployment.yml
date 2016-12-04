@@ -1,17 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: django-deployment
+  name: celery-deployment
 spec:
   replicas: 3
   template:
     metadata:
       labels:
-        app: django
+        app: celery
     spec:
       containers:
-      - name: django
+      - name: celery
         image: gcr.io/xs-amiable-bonus-6/django-image
+        command: ["/usr/local/bin/entrypoint", "celery", "-A", "project", "worker", "-l", "warning"]
         env:
         - name: POSTGRES_USER
           value: "postgres"
@@ -19,5 +20,3 @@ spec:
           value: "secret-password"
         - name: DJANGO_SETTINGS_MODULE
           value: "project.settings.prod"
-        ports:
-        - containerPort: 8000
