@@ -165,7 +165,7 @@ SWAGGER_SETTINGS = {
 }
 
 CELERY_BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
 
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': timedelta(minutes=10),
