@@ -4,17 +4,23 @@ services:
         extends:
             file: common.yml
             service: django
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: secret-password
         volumes:
             - static:/srv/django/static
         links:
-            - db:db
+            - postgres:postgres
             - rabbitmq:rabbitmq
             - redis:redis
 
     celery:
         image: django-image
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: secret-password
         links:
-            - db:db
+            - postgres:postgres
             - rabbitmq:rabbitmq
             - redis:redis
         command: celery -A project worker -l warning
@@ -29,8 +35,11 @@ services:
     react:
         build: ./react
 
-    db:
+    postgres:
         image: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: secret-password
 
     redis:
         image: redis:3.2
