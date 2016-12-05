@@ -2,7 +2,15 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: basic-ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
 spec:
+  tls:
+  - secretName: django-tls
+    hosts:
+    - www.mhelmer.se
+    - mhelmer.se
   backend:
     serviceName: django
     servicePort: 80
