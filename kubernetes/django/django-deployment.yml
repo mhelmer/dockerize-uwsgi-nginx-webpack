@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: django-deployment
 spec:
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: django
-        image: gcr.io/xs-amiable-bonus-6/django-image:1.3
+        image: gcr.io/xs-amiable-bonus-6/django-image:1.4
         env:
         - name: POSTGRES_USER
           value: "postgres"

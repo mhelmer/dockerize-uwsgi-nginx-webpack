@@ -16,5 +16,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: django
+          serviceName: nginx-django
           servicePort: 80

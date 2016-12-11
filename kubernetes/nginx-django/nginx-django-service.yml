@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: django
+  name: nginx-django
   labels:
-    app: django
+    app: nginx-django
 spec:
   type: LoadBalancer
   ports:
-  - port: 8000
-    targetPort: 8000
+  - port: 80
+    targetPort: 80
   type: NodePort
   selector:
-    app: django
+    app: nginx-django
