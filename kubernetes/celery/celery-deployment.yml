@@ -20,3 +20,7 @@ spec:
           value: "secret-password"
         - name: DJANGO_SETTINGS_MODULE
           value: "project.settings.prod"
+        - name: RABBITMQ_DEFAULT_USER
+          value: "user"
+        - name: RABBITMQ_DEFAULT_PASS
+          value: "password"

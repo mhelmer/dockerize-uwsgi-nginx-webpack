@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_i%mh%l&)sd*cqfrx0emua)o84+*!+5w29m%c03kqb4eym+6gc'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -164,7 +164,11 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': True,
 }
 
-CELERY_BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
+
+CELERY_BROKER_URL = 'amqp://{user}:{password}@rabbitmq:5672//'.format(
+    user=os.environ.get('RABBITMQ_DEFAULT_USER'),
+    password=os.environ.get('RABBITMQ_DEFAULT_PASS'),
+)
 CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
 
 JWT_AUTH = {

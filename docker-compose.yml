@@ -4,9 +4,10 @@ services:
         extends:
             file: common.yml
             service: django
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: secret-password
+        env_file:
+            - django/django-variables.env
+            - postgres/postgres-variables.env
+            - rabbitmq/rabbitmq-variables.env
         volumes:
             - static:/srv/django/static
         links:
@@ -16,9 +17,10 @@ services:
 
     celery:
         image: django-image
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: secret-password
+        env_file:
+            - django/django-variables.env
+            - postgres/postgres-variables.env
+            - rabbitmq/rabbitmq-variables.env
         links:
             - postgres:postgres
             - rabbitmq:rabbitmq
@@ -37,18 +39,16 @@ services:
 
     postgres:
         image: postgres
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: secret-password
+        env_file:
+            - postgres/postgres-variables.env
 
     redis:
         image: redis:3.2
 
     rabbitmq:
         image: rabbitmq:3.6
-        environment:
-            RABBITMQ_DEFAULT_USER: user
-            RABBITMQ_DEFAULT_PASS: password
+        env_file:
+            - rabbitmq/rabbitmq-variables.env
 
 volumes:
     static: {}
