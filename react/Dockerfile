@@ -1,7 +1,5 @@
 FROM node:4
 
-RUN npm install --quiet -g webpack
-
 COPY src/package.json /srv/react/
 
 WORKDIR /srv/react
@@ -14,6 +12,7 @@ USER root
 RUN chown -R node:node .
 USER node
 
-RUN webpack
+ARG NODE_ENV=production
+RUN npm run build -- --config webpack.config.prod.js
 
 CMD [ "npm", "start" ]

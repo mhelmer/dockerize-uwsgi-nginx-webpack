@@ -4,6 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
+    "build": "webpack",
     "lint": "eslint --color --ext .js --ext .jsx app test examples build",
     "lint:watch": "esw --color --watch --ext .js --ext .jsx app test examples build",
     "start": "node server.js",

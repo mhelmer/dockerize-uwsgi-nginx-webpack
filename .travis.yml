@@ -10,7 +10,7 @@ install:
   - docker-compose -f docker-compose.yml -f docker-compose.test.yml build django
 
 before_script:
-  - docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d db && sleep 10
+  - docker-compose -f docker-compose.yml -f docker-compose.test.yml up -d postgres && sleep 10
 
 script:
   - docker-compose -f docker-compose.yml -f docker-compose.test.yml run react npm run test -- --coverage

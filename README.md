@@ -65,4 +65,19 @@ To use the production compose file you will need to tell `docker-compose` to use
 docker-compose -f docker-compose.yml -f docker-compose.prod.yml <args>
 ```
 
+Extract static files for nginx:
+```
+docker-compose build django
+docker-compose run django ./manage.py --collectstatic --noinput
+mkdir nginx/django
+rsync -a --include 'static' django/src/static nginx/django
+
+docker-compose build react
+$react=docker run -it dockerizeuwsginginxwebpack_react:latest sleep 1
+rm -r nginx/react/dist && docker cp $react:/srv/react/dist nginx/react/dist
+docker rm $react
+```
+
+
+
 Not that this configuration is not suitable for production since it is not running HTTPS. You could for example use [JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) with [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) to achieve this.
