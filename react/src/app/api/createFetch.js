@@ -4,8 +4,8 @@ import humps from 'humps'
 import { checkStatus, parseJSON } from '../fetch'
 import { getAuthToken } from '../storage'
 
-function ApiError(message) {
-  this.message = message
+function ApiError({ nonFieldErrors, ...message }) {
+  this.message = { ...message, _error: nonFieldErrors }
 }
 
 const defaultHeaders = {
