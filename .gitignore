@@ -14,6 +14,8 @@ pip-delete-this-directory.txt
 *.mo
 *.pot
 
+npm-debug.log
+
 # dotenv
 /django/src/.env
 /django/src/db.sqlite3
@@ -26,5 +28,4 @@ pip-delete-this-directory.txt
 /react/src/.npm/
 /react/src/.bash_history
 /react/src/.node_repl_history
-/react/src/npm-debug.log
 /react/src/coverage

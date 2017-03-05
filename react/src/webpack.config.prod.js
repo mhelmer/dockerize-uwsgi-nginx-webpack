@@ -21,7 +21,7 @@ var webpackConfig = {
         test: /.jsx?$/,
         include: path.join(__dirname, 'app'),
         exclude: /node_modules/,
-        loaders: ['babel']
+        loader: 'babel'
       },
       {
         test: /\.scss$/,
@@ -29,6 +29,26 @@ var webpackConfig = {
       }
     ]
   },
+
+  module: {
+    rules: [
+      {
+        test: /.jsx?$/,
+        include: path.join(__dirname, 'app'),
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader'
+          'css-loader',
+          'sass-loader'
+        ]
+      }
+    ]
+  },
+
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Custom template',
