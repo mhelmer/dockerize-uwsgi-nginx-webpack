@@ -18,21 +18,28 @@ var webpackConfig = {
     filename: 'js/[name].[hash].js',
     publicPath: '/'
   },
-  debug: true,
   devtool: 'source-map',
   module: {
-    loaders: [
-      {
-        test: /.jsx?$/,
-        include: path.join(__dirname, 'app'),
-        exclude: /node_modules/,
-        loaders: ['babel']
-      },
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
-      }
-    ]
+    rules: [{
+      test: /.jsx?$/,
+      include: path.join(__dirname, 'app'),
+      exclude: /node_modules/,
+      loader: 'babel-loader'
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        {
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader',
+          options: { sourceMap: true }
+        }, {
+          loader: 'sass-loader',
+          options:  { sourceMap: true }
+        }
+      ]
+    }]
   },
   plugins: [
     new HtmlWebpackPlugin({
