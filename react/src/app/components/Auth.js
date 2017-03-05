@@ -6,23 +6,6 @@ import { bindActionToPromise } from '../actions/utils'
 import { getIsAuthenticated } from '../reducers'
 import UserBar from './UserBar'
 
-/* eslint-disable */
-export const domOnlyProps = ({
-  initialValue,
-  autofill,
-  onUpdate,
-  valid,
-  invalid,
-  dirty,
-  pristine,
-  active,
-  touched,
-  visited,
-  autofilled,
-  error,
-  ...domProps }) => domProps
-/* eslint-enable */
-
 const renderInput = ({ input, meta, type, label, placeholder }) => (
   <div>
     <label>
