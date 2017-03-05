@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import sys
 from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -175,4 +176,26 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': timedelta(minutes=10),
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': timedelta(days=7),
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'consoleout': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'strm': sys.stdout
+        },
+        'consoleerr': {
+            'level': 'WARNING',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['consoleout', 'consoleerr'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
 }
