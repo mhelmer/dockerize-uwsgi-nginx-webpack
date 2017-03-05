@@ -11,12 +11,16 @@ function* authenticate(token, loginAction) {
     const json = yield token ? call(Api.tokenRefresh, { token })
       : call(Api.authenticate, loginAction.values)
 
-    !token && loginAction.resolve(json)
+    if(!token) {
+      yield call(loginAction.resolve, json)
+    }
     yield call(Storage.setAuthToken, json.token)
     yield put(actionCreators.loginSuccess(json.token, jwtDecode(json.token)))
     return json.token
   } catch (e) {
-    !token && loginAction.reject(e.message)
+    if (!token) {
+      yield call(loginAction.reject, e.message)
+    }
     yield call(Storage.removeAuthToken)
     yield put(actionCreators.loginFailure(e.message))
     return null

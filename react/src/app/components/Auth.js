@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm } from 'redux-form'
 import { loginRequest } from '../actions/auth'
+import { bindActionToPromise } from '../actions/utils'
 import { getIsAuthenticated } from '../reducers'
 import UserBar from './UserBar'
 
@@ -74,9 +75,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  handleLogin: values => new Promise(
-    (resolve, reject) => dispatch(loginRequest(values, resolve, reject))
-  ),
+  handleLogin: bindActionToPromise(dispatch, loginRequest),
 })
 
 export const AuthPanel = connect(mapStateToProps, mapDispatchToProps)(LoginLogout)
