@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { reduxForm } from 'redux-form'
+import { reduxForm, Field } from 'redux-form'
 import { loginRequest } from '../actions/auth'
 import { bindActionToPromise } from '../actions/utils'
 import { getIsAuthenticated } from '../reducers'
@@ -23,28 +23,27 @@ export const domOnlyProps = ({
   ...domProps }) => domProps
 /* eslint-enable */
 
-const SubmitValidationForm = ({ fields: { username, password }, error, resetForm, handleSubmit, submitting }) => (
+const renderInput = ({ input, meta, type, label, placeholder }) => (
+  <div>
+    <label>
+      { label }
+      <input {...input} type={type} placeholder={placeholder} />
+    </label>
+    {meta.touched && meta.error && <span className="error">{meta.error}</span>}
+  </div>
+)
+
+
+const SubmitValidationForm = ({ error, reset, handleSubmit, submitting }) => (
   <form onSubmit={handleSubmit}>
-    <div>
-      <label htmlFor="username">Username</label>
-      <div>
-        <input name={username} type="text" placeholder="Username" {...domOnlyProps(username)}/>
-      </div>
-      {username.touched && username.error && <div>{username.error}</div>}
-    </div>
-    <div>
-      <label htmlFor="password">Password</label>
-      <div>
-        <input name="password" type="password" placeholder="Password" {...domOnlyProps(password)}/>
-      </div>
-      {password.touched && password.error && <div>{password.error}</div>}
-    </div>
+    <Field component={renderInput} name="username" type="text" placeholder="Username" label="username" />
+    <Field component={renderInput} name="password" type="password" placeholder="Password" label="password" />
     {error && <div>{error}</div>}
     <div>
       <button type="submit" disabled={submitting}>
         Log In
       </button>
-      <button type="button" disabled={submitting} onClick={resetForm}>
+      <button type="button" disabled={submitting} onClick={reset}>
         Clear Values
       </button>
     </div>
@@ -54,14 +53,12 @@ const SubmitValidationForm = ({ fields: { username, password }, error, resetForm
 SubmitValidationForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.array,
-  fields: PropTypes.object.isRequired,
-  resetForm: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
 }
 
 const LoginForm = reduxForm({
   form: 'submitValidation',
-  fields: [ 'username', 'password' ],
 })(SubmitValidationForm)
 
 const LoginLogout = ({ isAuthenticated, handleLogin }) => (

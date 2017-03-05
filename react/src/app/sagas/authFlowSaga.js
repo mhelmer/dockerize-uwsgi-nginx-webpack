@@ -1,5 +1,6 @@
 import { delay } from 'redux-saga'
 import { call, put, take, race } from 'redux-saga/effects'
+import { SubmissionError } from 'redux-form'
 import * as actionTypes from '../constants/actionTypes'
 import * as actionCreators from '../actions/auth'
 import jwtDecode from 'jwt-decode'
@@ -19,7 +20,7 @@ function* authenticate(token, loginAction) {
     return json.token
   } catch (e) {
     if (!token) {
-      yield call(loginAction.reject, e.message)
+      yield call(loginAction.reject, new SubmissionError(e.message))
     }
     yield call(Storage.removeAuthToken)
     yield put(actionCreators.loginFailure(e.message))
