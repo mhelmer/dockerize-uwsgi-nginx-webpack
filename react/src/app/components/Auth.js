@@ -17,7 +17,7 @@ const renderInput = ({ input, meta, type, label, placeholder }) => (
 )
 
 
-const SubmitValidationForm = ({ error, reset, handleSubmit, submitting }) => (
+const LoginForm = ({ error, reset, handleSubmit, submitting }) => (
   <form onSubmit={handleSubmit}>
     <Field component={renderInput} name="username" type="text" placeholder="Username" label="username" />
     <Field component={renderInput} name="password" type="password" placeholder="Password" label="password" />
@@ -40,13 +40,14 @@ SubmitValidationForm.propTypes = {
   submitting: PropTypes.bool.isRequired,
 }
 
-const LoginForm = reduxForm({
+const LoginReduxForm = reduxForm({
   form: 'submitValidation',
-})(SubmitValidationForm)
+})(LoginForm)
 
-const LoginLogout = ({ isAuthenticated, handleLogin }) => (
+const AuthPanel = ({ isAuthenticated, handleLogin }) => (
   <div className="auth-panel">
-    { isAuthenticated ? <UserBar /> : <LoginForm onSubmit={handleLogin}/> }
+    { isAuthenticated ? <UserBar />
+      : <LoginReduxForm onSubmit={handleLogin}/> }
   </div>
 )
 
@@ -58,4 +59,4 @@ const mapDispatchToProps = dispatch => ({
   handleLogin: bindActionToPromise(dispatch, loginRequest),
 })
 
-export const AuthPanel = connect(mapStateToProps, mapDispatchToProps)(LoginLogout)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthPanel)

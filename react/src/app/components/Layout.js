@@ -1,11 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { AuthPanel } from './Auth'
+import Auth from './Auth'
 import '../styles/main.scss'
 
 const Layout = ({ children }) => (
   <div className="root">
-    <AuthPanel />
+    <Auth />
     <h1>Main Heading</h1>
     <ul>
       <li>
