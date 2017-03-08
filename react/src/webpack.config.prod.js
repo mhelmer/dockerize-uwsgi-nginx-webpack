@@ -16,21 +16,6 @@ var webpackConfig = {
     publicPath: '/'
   },
   module: {
-    loaders: [
-      {
-        test: /.jsx?$/,
-        include: path.join(__dirname, 'app'),
-        exclude: /node_modules/,
-        loader: 'babel'
-      },
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
-      }
-    ]
-  },
-
-  module: {
     rules: [
       {
         test: /.jsx?$/,

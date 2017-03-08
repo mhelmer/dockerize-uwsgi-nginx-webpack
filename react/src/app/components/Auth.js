@@ -33,7 +33,7 @@ const LoginForm = ({ error, reset, handleSubmit, submitting }) => (
   </form>
 )
 
-SubmitValidationForm.propTypes = {
+LoginForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.array,
   reset: PropTypes.func.isRequired,
