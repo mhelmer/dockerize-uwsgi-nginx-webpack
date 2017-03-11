@@ -1,5 +1,5 @@
 import auth, * as selectors from './auth'
-import * as actionCreators from '../actions/auth'
+import * as actionCreators from 'actions/auth'
 
 describe('auth reducer', () => {
   describe('initial state', () => {

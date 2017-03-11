@@ -1,6 +1,6 @@
-import rootReducer, * as selectors from './index'
-import * as authActionCreators from '../actions/auth'
-import * as userActionCreators from '../actions/user'
+import rootReducer, * as selectors from 'reducers'
+import * as authActionCreators from 'actions/auth'
+import * as userActionCreators from 'actions/user'
 
 describe('rootReducer', () => {
   describe('getCurrentUser', () => {

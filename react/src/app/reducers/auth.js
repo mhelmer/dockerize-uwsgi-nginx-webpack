@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
-import * as actionTypes from '../constants/actionTypes'
-import { createReducer, createIsFetching } from './utils'
+
+import * as actionTypes from 'constants/actionTypes'
+import { createReducer, createIsFetching } from 'reducers/utils'
 
 const isFetching = createIsFetching(actionTypes.LOGIN)
 

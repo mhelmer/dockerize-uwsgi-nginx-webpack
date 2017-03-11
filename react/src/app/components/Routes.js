@@ -1,10 +1,11 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
-import Home from './Home'
-import Layout from './Layout'
-import NotFound from './NotFound'
-import User from './Users/User'
-import Users from './Users'
+
+import Home from 'components/Home'
+import Layout from 'components/Layout'
+import NotFound from 'components/NotFound'
+import User from 'components/Users/User'
+import Users from 'components/Users'
 
 const routes = (
   <Route path="/" component={Layout}>

@@ -1,6 +1,7 @@
 import { routerReducer } from 'react-router-redux'
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
+
 import users, * as fromUsers from './users'
 import auth, * as fromAuth from './auth'
 

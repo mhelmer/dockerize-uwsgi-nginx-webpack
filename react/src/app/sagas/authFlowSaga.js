@@ -1,11 +1,12 @@
 import { delay } from 'redux-saga'
 import { call, put, take, race } from 'redux-saga/effects'
 import { SubmissionError } from 'redux-form'
-import * as actionTypes from '../constants/actionTypes'
-import * as actionCreators from '../actions/auth'
+
+import * as actionTypes from 'constants/actionTypes'
+import * as actionCreators from 'actions/auth'
 import jwtDecode from 'jwt-decode'
-import * as Api from '../api'
-import * as Storage from '../storage'
+import * as Api from 'api'
+import * as Storage from 'storage'
 
 function* authenticate(token, loginAction) {
   try {

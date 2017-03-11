@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
-import { loginRequest } from '../actions/auth'
-import { bindActionToPromise } from '../actions/utils'
-import { getIsAuthenticated } from '../reducers'
-import UserBar from './UserBar'
+
+import { loginRequest } from 'actions/auth'
+import { bindActionToPromise } from 'actions/utils'
+import { getIsAuthenticated } from 'reducers'
+import UserBar from 'components/UserBar'
 
 const renderInput = ({ input, meta, type, label, placeholder }) => (
   <div>

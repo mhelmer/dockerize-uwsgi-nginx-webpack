@@ -1,7 +1,8 @@
 import React from 'react'
 import { Provider } from 'react-redux'
+
 import DevTools from './DevTools'
-import App from '../components/index.js'
+import App from 'components/index.js'
 
 
 const Root = ({ store, history }) => (

@@ -1,6 +1,10 @@
 {
   "presets": [["es2015", { "modules": false }], "react"],
-  "plugins": ["transform-object-rest-spread", "react-hot-loader/babel"],
+  "plugins": [
+    "transform-object-rest-spread",
+    "react-hot-loader/babel",
+    ["module-resolver", { "root": ["./app"] }]
+  ],
   "env": {
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]

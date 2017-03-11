@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getUser } from '../../reducers'
+
+import { getUser } from 'reducers'
 
 export const User = ({ user }) => (
   <div>

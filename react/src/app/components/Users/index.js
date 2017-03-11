@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from '../../reducers'
-import { fetchUsersRequest } from '../../actions/user'
+
+import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from 'reducers'
+import { fetchUsersRequest } from 'actions/user'
 import UserList from './UserList'
 
 class Users extends Component {

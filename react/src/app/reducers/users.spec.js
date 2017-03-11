@@ -1,5 +1,5 @@
 import users, * as selectors from './users'
-import * as actionCreators from '../actions/user'
+import * as actionCreators from 'actions/user'
 
 describe('user reducer', () => {
   describe('initial state', () => {

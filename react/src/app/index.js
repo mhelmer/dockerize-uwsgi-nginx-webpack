@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-import configureStore from './store/configureStore'
-import App from './containers/Root'
+
+import configureStore from 'store/configureStore'
+import App from 'containers/Root'
 
 
 const store = configureStore()

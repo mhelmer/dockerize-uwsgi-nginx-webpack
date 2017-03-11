@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { logoutRequest } from '../actions/auth.js'
-import { getUserId } from '../reducers'
+
+import { logoutRequest } from 'actions/auth.js'
+import { getUserId } from 'reducers'
 
 const Logout = ({ handleClick }) => (
   <button className="logout-button" onClick={() => handleClick()}>Logout</button>

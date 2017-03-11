@@ -1,7 +1,8 @@
-import * as actionCreators from '../actions/user'
-import { fetchUsers } from './userSaga'
 import { call, put } from 'redux-saga/effects'
-import * as Api from '../api'
+
+import * as actionCreators from 'actions/user'
+import * as Api from 'api'
+import { fetchUsers } from './userSaga'
 
 describe('userSaga', () => {
   describe('fetchUsers', () => {

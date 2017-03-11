@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import humps from 'humps'
 
-import { checkStatus, parseJSON } from '../fetch'
-import { getAuthToken } from '../storage'
+import { checkStatus, parseJSON } from 'fetch'
+import { getAuthToken } from 'storage'
 
 function ApiError({ nonFieldErrors, ...message }) {
   this.message = { ...message, _error: nonFieldErrors }

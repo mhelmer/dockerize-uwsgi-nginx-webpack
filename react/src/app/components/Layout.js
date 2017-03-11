@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
-import Auth from './Auth'
-import '../styles/main.scss'
+
+import Auth from 'components/Auth'
+import 'styles/main.scss'
 
 const Layout = ({ children }) => (
   <div className="root">

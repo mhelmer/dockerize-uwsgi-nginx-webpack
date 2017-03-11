@@ -1,8 +1,9 @@
 import { takeEvery } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
-import * as actionTypes from '../constants/actionTypes'
-import * as actionCreators from '../actions/user'
-import * as Api from '../api'
+
+import * as actionTypes from 'constants/actionTypes'
+import * as actionCreators from 'actions/user'
+import * as Api from 'api'
 
 export function* fetchUsers() {
   try {
