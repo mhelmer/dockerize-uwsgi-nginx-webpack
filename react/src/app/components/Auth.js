@@ -1,11 +1,19 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
+import { compose } from 'redux'
+import Radium from 'radium'
 
 import { loginRequest } from 'actions/auth'
 import { bindActionToPromise } from 'actions/utils'
 import { getIsAuthenticated } from 'reducers'
 import UserBar from 'components/UserBar'
+
+const styles = {
+  authPanel: {
+    margin: '10px',
+  }
+}
 
 const renderInput = ({ input, meta, type, label, placeholder }) => (
   <div>
@@ -13,7 +21,7 @@ const renderInput = ({ input, meta, type, label, placeholder }) => (
       { label }
       <input {...input} type={type} placeholder={placeholder} />
     </label>
-    {meta.touched && meta.error && <span className="error">{meta.error}</span>}
+    {meta.touched && meta.error && <span>{meta.error}</span>}
   </div>
 )
 
@@ -42,11 +50,11 @@ LoginForm.propTypes = {
 }
 
 const LoginReduxForm = reduxForm({
-  form: 'submitValidation',
+  form: 'LoginForm',
 })(LoginForm)
 
 const AuthPanel = ({ isAuthenticated, handleLogin }) => (
-  <div className="auth-panel">
+  <div style={[styles.authPanel]}>
     { isAuthenticated ? <UserBar />
       : <LoginReduxForm onSubmit={handleLogin}/> }
   </div>
@@ -60,4 +68,7 @@ const mapDispatchToProps = dispatch => ({
   handleLogin: bindActionToPromise(dispatch, loginRequest),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuthPanel)
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  Radium
+)(AuthPanel)
