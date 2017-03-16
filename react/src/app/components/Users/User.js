@@ -10,7 +10,7 @@ export const User = ({ user }) => (
 )
 
 const VisibleUser = connect(
-  (state, { params }) => ({ user: getUser(state, parseInt(params.userId)) })
+  (state, { match: { params: { userId } } }) => ({ user: getUser(state, parseInt(userId)) })
 )(User)
 
 export default VisibleUser

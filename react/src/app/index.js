@@ -1,16 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
-import { browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import createHistory from 'history/createBrowserHistory'
 
 import configureStore from 'store/configureStore'
 import App from 'containers/Root'
 
 
-const store = configureStore()
-
-const history = syncHistoryWithStore(browserHistory, store)
+const history = createHistory()
+const store = configureStore(undefined, history)
 
 const renderApp = AppComponent => {
   ReactDOM.render(

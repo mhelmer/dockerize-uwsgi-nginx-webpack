@@ -1,11 +1,12 @@
 import React from 'react'
-import { Router } from 'react-router'
+import { ConnectedRouter as Router } from 'react-router-redux'
 
-import routes from './Routes'
+import Routes from './Routes'
 
 const App = ({ history }) => (
   <Router history={history}>
-    { routes }
+    <Routes />
   </Router>
 )
+
 export default App

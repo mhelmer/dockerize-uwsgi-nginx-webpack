@@ -2,6 +2,8 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
+import { routerMiddleware } from 'react-router-redux'
+
 
 import DevTools from 'containers/DevTools'
 import rootReducer from 'reducers'
@@ -10,16 +12,17 @@ import rootSaga from 'sagas'
 const loggerMiddleware = createLogger()
 const sagaMiddleware = createSagaMiddleware()
 
-const enhancer = compose(
-  applyMiddleware(
-    thunkMiddleware,
-    loggerMiddleware,
-    sagaMiddleware
-  ),
-  DevTools.instrument()
-)
+export default function configureStore(initialState, history) {
+  const enhancer = compose(
+    applyMiddleware(
+      thunkMiddleware,
+      loggerMiddleware,
+      routerMiddleware(history),
+      sagaMiddleware
+    ),
+    DevTools.instrument()
+  )
 
-export default function configureStore(initialState) {
   const store = createStore(
     rootReducer,
     initialState,
