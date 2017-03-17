@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from 'reducers'
 import { fetchUsersRequest } from 'actions/user'
 import UserList from './UserList'
+import { H2 } from 'components/Headings'
 
 class Users extends Component {
   componentDidMount() {
@@ -16,7 +17,7 @@ class Users extends Component {
     const { isAuthenticated, isFetching, users, children } = this.props
     return (
       <div>
-        <h2>Users</h2>
+        <H2>Users</H2>
         { !isAuthenticated ? <span>Log in to see users</span>
           : users.length === 0 && isFetching ? <span>Loading...</span>
           : <UserList users={users} children={children} />

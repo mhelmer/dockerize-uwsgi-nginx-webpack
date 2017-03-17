@@ -6,22 +6,17 @@ import baseColors from 'constants/baseColors'
 
 const styles = {
   a: {
-    color: baseColors.orange0,
+    color: baseColors.orange1,
     textDecoration: 'none',
     fontWeight: 600,
-    ':visited': {
-      color: baseColors.orange0,
-      textDecoration: 'none',
-      fontWeight: 600,
-    },
-    ':hover': { color: baseColors.orange1 },
+    ':hover': { color: baseColors.orange0 },
   },
 }
 
 const RadiumLink = Radium(Link)
 
 const WrappedLink = ({ children, ...props }) => (
-  <RadiumLink style={[styles.a]} {...props}>
+  <RadiumLink style={[ styles.a ]} {...props}>
     { children }
   </RadiumLink>
 )

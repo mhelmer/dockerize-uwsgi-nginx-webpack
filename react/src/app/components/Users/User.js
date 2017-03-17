@@ -2,10 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { getUser } from 'reducers'
+import { H2 } from 'components/Headings'
 
 export const User = ({ user }) => (
   <div>
-    <h2>{ user ? user.username : 'Not Found'}</h2>
+    <H2>{user ? user.username : 'Not Found'}</H2>
   </div>
 )
 

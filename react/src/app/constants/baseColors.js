@@ -42,6 +42,7 @@ const gruvboxColors = {
     bg2: '#504945',
     bg3: '#665c54',
     bg4: '#7c6f64',
+    fg: '#ebdbb2',
     fg0: '#fbf1c7',
     fg1: '#ebdbb2',
     fg2: '#d5c4a1',

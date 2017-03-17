@@ -4,41 +4,44 @@ import Radium, { Style, StyleRoot } from 'radium'
 import Auth from 'components/Auth'
 import baseColors from 'constants/baseColors'
 import Link from 'components/Link'
+import { H1 } from 'components/Headings'
 
 const styles = {
   root: {
     width: '960px',
     margin: '0 auto',
   },
-  heading: {
-    backgroundColor: baseColors.bg2,
-    padding: '.2em .5em',
-    color: baseColors.green1,
-    borderRadius: '.5em',
-  },
 }
 const globalStyle = {
   'body': {
     backgroundColor: baseColors.bg,
-    color: baseColors.fg3,
+    color: baseColors.fg,
     fontFamily: 'sans-serif',
   },
 }
+
+
+const routes = [
+  { to: '/', name: 'Home' },
+  { to: '/users', name: 'Users' },
+]
+const Nav = () => (
+  <ul>
+    { routes.map(({ to, name }) => (
+      <li key={to}>
+        <Link to={to}>{ name }</Link>
+      </li>
+    )) }
+  </ul>
+)
 
 const Layout = ({ children }) => (
   <StyleRoot>
     <Style rules={globalStyle} />
     <div style={[ styles.root ]}>
       <Auth />
-      <h1 style={[ styles.heading ]}>Main Heading</h1>
-      <ul>
-        <li>
-          <Link to={'/'}>Home</Link>
-        </li>
-        <li>
-          <Link to={'/users'}>Users</Link>
-        </li>
-      </ul>
+      <H1>Main Heading</H1>
+      <Nav />
       <div>
         {children}
       </div>
