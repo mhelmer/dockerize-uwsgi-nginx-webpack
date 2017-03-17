@@ -13,13 +13,14 @@ const styles = {
   heading: {
     backgroundColor: baseColors.bg2,
     padding: '.2em .5em',
+    color: baseColors.green1,
     borderRadius: '.5em',
   },
 }
 const globalStyle = {
   'body': {
     backgroundColor: baseColors.bg,
-    color: baseColors.fg,
+    color: baseColors.fg3,
     fontFamily: 'sans-serif',
   },
 }
