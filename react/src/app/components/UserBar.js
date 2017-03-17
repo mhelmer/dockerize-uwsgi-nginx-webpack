@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 import { logoutRequest } from 'actions/auth.js'
 import { getUserId } from 'reducers'
-import baseColors from 'constants/baseColors'
+import baseColors from 'styles/baseColors'
 
 const styles = {
   baseButton: {

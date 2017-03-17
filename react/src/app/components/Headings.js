@@ -2,7 +2,7 @@ import { DOM } from 'react'
 import Radium from 'radium'
 import { compose, mapProps } from 'recompose'
 
-import baseColors from 'constants/baseColors'
+import baseColors from 'styles/baseColors'
 
 const { h1, h2, h3, h4, h5 } = DOM
 

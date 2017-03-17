@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Radium from 'radium'
 
-import baseColors from 'constants/baseColors'
+import baseColors from 'styles/baseColors'
 
 const styles = {
   a: {

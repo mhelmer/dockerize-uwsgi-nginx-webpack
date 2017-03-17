@@ -2,14 +2,18 @@ import React from 'react'
 import Radium, { Style, StyleRoot } from 'radium'
 
 import Auth from 'components/Auth'
-import baseColors from 'constants/baseColors'
 import Link from 'components/Link'
 import { H1 } from 'components/Headings'
+import mediaQueries from 'styles/mediaQueries'
+import baseColors from 'styles/baseColors'
 
 const styles = {
   root: {
-    width: '960px',
+    width: '100%',
     margin: '0 auto',
+    [mediaQueries.breakpointLarge]: {
+      width: '960px',
+    },
   },
 }
 const globalStyle = {
@@ -36,17 +40,25 @@ const Nav = () => (
 )
 
 const Layout = ({ children }) => (
+  <div style={[ styles.root ]}>
+    <Auth />
+    <H1>Main Heading</H1>
+    <Nav />
+    <div>
+      {children}
+    </div>
+  </div>
+)
+
+const RadiumLayout = Radium(Layout)
+
+const LayoutRoot = ({ children }) => (
   <StyleRoot>
     <Style rules={globalStyle} />
-    <div style={[ styles.root ]}>
-      <Auth />
-      <H1>Main Heading</H1>
-      <Nav />
-      <div>
-        {children}
-      </div>
-    </div>
+    <RadiumLayout>
+      {children}
+    </RadiumLayout>
   </StyleRoot>
 )
 
-export default Radium(Layout)
+export default LayoutRoot
