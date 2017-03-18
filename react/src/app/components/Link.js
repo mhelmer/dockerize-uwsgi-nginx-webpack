@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import { Link } from 'react-router-dom'
 import Radium from 'radium'
 
@@ -20,5 +20,8 @@ const WrappedLink = ({ children, ...props }) => (
     { children }
   </RadiumLink>
 )
+WrappedLink.propTypes = {
+  children: PropTypes.node.isRequired,
+}
 
 export default WrappedLink

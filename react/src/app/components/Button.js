@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import Radium from 'radium'
 
 import baseColors from 'styles/baseColors'
@@ -22,5 +22,10 @@ const BaseButton = Radium(({ style = [], kind = 'default', children, ...props })
     { children }
   </button>
 ))
+BaseButton.propTypes = {
+  style: PropTypes.array,
+  kind: PropTypes.string,
+  children: PropTypes.node,
+}
 
 export default BaseButton

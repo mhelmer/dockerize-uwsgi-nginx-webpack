@@ -1,3 +1,4 @@
+import { PropTypes } from 'react'
 import Radium from 'radium'
 import { compose, defaultProps, mapProps, componentFromProp } from 'recompose'
 
@@ -19,9 +20,15 @@ const mapOwnPropsToProps = ({ style = [], headingType, ...ownProps }) => ({
 })
 
 const Heading = compose(
-  Radium,
-  mapProps(mapOwnPropsToProps)
+  mapProps(mapOwnPropsToProps),
+  Radium
 )(componentFromProp('component'))
+
+Heading.propTypes = {
+  style: PropTypes.array,
+  headingType: PropTypes.string.isRequired,
+  component: PropTypes.any.isRequired,
+}
 
 const createHeading = (headingType = 'h1') => defaultProps({ component: headingType, headingType })(Heading)
 

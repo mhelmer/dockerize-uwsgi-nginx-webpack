@@ -21,6 +21,9 @@ const Logout = ({ handleClick }) => (
     Logout
   </Button>
 )
+Logout.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+}
 
 const SignedInPanel = ({ logoutRequest, userId }) => (
   <div>
