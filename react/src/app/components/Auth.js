@@ -8,11 +8,12 @@ import { loginRequest } from 'actions/auth'
 import { bindActionToPromise } from 'actions/utils'
 import { getIsAuthenticated } from 'reducers'
 import UserBar from 'components/UserBar'
+import Button from 'components/Button'
 
 const styles = {
   authPanel: {
     margin: '10px',
-  }
+  },
 }
 
 const renderInput = ({ input, meta, type, label, placeholder }) => (
@@ -32,12 +33,12 @@ const LoginForm = ({ error, reset, handleSubmit, submitting }) => (
     <Field component={renderInput} name="password" type="password" placeholder="Password" label="password" />
     {error && <div>{error}</div>}
     <div>
-      <button type="submit" disabled={submitting}>
+      <Button kind="primary" type="submit" disabled={submitting}>
         Log In
-      </button>
-      <button type="button" disabled={submitting} onClick={reset}>
+      </Button>
+      <Button type="button" disabled={submitting} onClick={reset}>
         Clear Values
-      </button>
+      </Button>
     </div>
   </form>
 )
@@ -54,7 +55,7 @@ const LoginReduxForm = reduxForm({
 })(LoginForm)
 
 const AuthPanel = ({ isAuthenticated, handleLogin }) => (
-  <div style={[styles.authPanel]}>
+  <div style={[ styles.authPanel ]}>
     { isAuthenticated ? <UserBar />
       : <LoginReduxForm onSubmit={handleLogin}/> }
   </div>

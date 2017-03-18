@@ -5,14 +5,9 @@ import { connect } from 'react-redux'
 
 import { logoutRequest } from 'actions/auth.js'
 import { getUserId } from 'reducers'
-import baseColors from 'styles/baseColors'
+import Button from 'components/Button'
 
 const styles = {
-  baseButton: {
-    backgroundColor: baseColors.bg1,
-    color: baseColors.red0,
-    border: `1px solid ${baseColors.red0}`,
-  },
   logoutButton: {
     float: 'right',
   },
@@ -21,14 +16,11 @@ const styles = {
   },
 }
 
-const Logout = Radium(({ handleClick }) => (
-  <button
-    style={[ styles.baseButton, styles.logoutButton ]}
-    onClick={() => handleClick()}
-  >
+const Logout = ({ handleClick }) => (
+  <Button style={[ styles.logoutButton ]} onClick={() => handleClick()}>
     Logout
-  </button>
-))
+  </Button>
+)
 
 const SignedInPanel = ({ logoutRequest, userId }) => (
   <div>
