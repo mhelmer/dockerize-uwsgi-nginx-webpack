@@ -1,9 +1,7 @@
-import React, { DOM } from 'react'
+import React from 'react'
 import Radium from 'radium'
 
 import baseColors from 'styles/baseColors'
-
-const { button } = DOM
 
 const styles = {
   base: {
