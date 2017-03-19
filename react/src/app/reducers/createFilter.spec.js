@@ -1,4 +1,4 @@
-import createFilter from './createFilter'
+import createFilter, { createEnhancerFilter } from './createFilter'
 
 describe('createFilter', () => {
   describe('simple reducer', () => {
@@ -6,18 +6,20 @@ describe('createFilter', () => {
       : state
 
     it('should have initial state', () => {
-      const filterReducer = createFilter([ 'FILTER_ONE' ])(reducer)
+      const filterReducer = createEnhancerFilter([ 'FILTER_ONE' ])(reducer)
       const state = filterReducer(undefined, {})
       expect(state['FILTER_ONE']).toBe(null)
 
     })
     it('should handle a single filter without enhancers', () => {
-      const filterNames = [ 'FILTER_ONE' ]
-      const filterReducer = createFilter(filterNames)(reducer)
+      const FILTER_ONE = 'FILTER_ONE'
+      const filterReducer = createFilter({
+        [FILTER_ONE]: reducer,
+      })
 
       const state = filterReducer(undefined, {
         type: 'FETCH_FILTER_SUCCESS',
-        filterName: 'FILTER_ONE',
+        filterName: FILTER_ONE,
         payload: 'some-payload',
       })
       expect(state['FILTER_ONE']).toBe('some-payload')
@@ -28,7 +30,7 @@ describe('createFilter', () => {
         ...state,
         enhanced: reducer(state.enhanced, action),
       })
-      const filterReducer = createFilter(filterNames, { ['FILTER_ONE']: enhancer })(reducer)
+      const filterReducer = createEnhancerFilter(filterNames, { ['FILTER_ONE']: enhancer })(reducer)
 
       const state = filterReducer(undefined, {
         type: 'FETCH_FILTER_SUCCESS',

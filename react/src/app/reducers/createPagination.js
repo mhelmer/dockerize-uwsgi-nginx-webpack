@@ -1,6 +1,6 @@
 import { has } from 'lodash'
 import { compose, combineReducers } from 'redux'
-import { createReducer } from 'reducers/utils'
+import { createReducer, withFilter, reduceKey } from 'reducers/utils'
 
 const createPredicateReducer = (initialState, predicateReducers) => {
   return (state = initialState, action) => {
@@ -15,16 +15,6 @@ const reduceAllKeys = reducer => (state, action) => (
     return acc
   }, {})
 )
-const reduceKey = mapActionToKey => reducer => (state, action) => ({
-  ...state,
-  [mapActionToKey(action)]: reducer(state[mapActionToKey(action)], action),
-})
-
-const withFilter = filterPredicate => reducer => (state, action) => {
-  const isInitializationCall = state === undefined
-  const shouldRunReducer = filterPredicate(action) || isInitializationCall
-  return shouldRunReducer ? reducer(state, action) : state
-}
 const pageCountReducer = (state, action) => {
   if(action.next === null) {
     return action.filterQuery.page

@@ -1,20 +1,34 @@
 import { has } from 'lodash'
 
-const createFilter = (filterNames, filterEnhancers = {}) => reducer => {
+export const createEnhancerFilter = (filterNames, filterEnhancers = {}) => reducer => {
   const getReducerByFilter = filterName => has(filterEnhancers, filterName) ? filterEnhancers[filterName](reducer)
     : reducer
 
-  const initialState = filterNames.reduce((nextState, filterName) => {
-    nextState[filterName] = getReducerByFilter(filterName)(undefined, {})
+  const reducers = filterNames.reduce((enhancedReducers, filterName,) => {
+    enhancedReducers[filterName] = getReducerByFilter(filterName)
+    return enhancedReducers
+  }, {})
+  return createFilter(reducers)
+}
+
+const mapActionToKey = action => action.filterName
+const reduceKeyReducer = (mapActionToKey, reducers) => (state, action) => {
+  const key = mapActionToKey(action)
+  return {
+    ...state,
+    [key]: reducers[key](state[key], action),
+  }
+}
+const createFilter = filterReducers => {
+  const filterPredicate = action => has(action, 'filterName') && filterReducers.hasOwnProperty(action.filterName)
+  const initialState = Object.keys(filterReducers).reduce((nextState, filterName) => {
+    nextState[filterName] = filterReducers[filterName](undefined, {})
     return nextState
   }, {})
 
   return (state = initialState, action) => {
-    if (has(action, 'filterName') && filterNames.indexOf(action.filterName) !== -1) {
-      return ({
-        ...state,
-        [action.filterName]: getReducerByFilter(action.filterName)(state[action.filterName], action),
-      })
+    if(filterPredicate(action)) {
+      return reduceKeyReducer(mapActionToKey, filterReducers)(state, action)
     }
     return state
   }
