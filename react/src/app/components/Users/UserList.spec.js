@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import UserList, { UserListItem } from './UserList'
+import Link from 'components/Link'
 
 const firstUser = { id: 1, username: 'First user' }
 const secondUser = { ...firstUser, id: 2, username: 'Second user' }
@@ -45,7 +46,7 @@ describe('UserList components', () => {
     }
     it('renders username', () => {
       const { enzymeWrapper } = setup({ user: firstUser })
-      const UserLinks = enzymeWrapper.find('Link')
+      const UserLinks = enzymeWrapper.find(Link)
       expect(UserLinks.length).toBe(1)
 
       const UserLink = UserLinks.first()

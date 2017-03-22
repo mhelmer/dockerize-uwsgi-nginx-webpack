@@ -1,5 +1,5 @@
 import makeActionCreator from './makeActionCreator.js'
-import * as actionTypes from '../constants/actionTypes'
+import * as actionTypes from 'constants/actionTypes'
 
 export const loginRequest = makeActionCreator(actionTypes.LOGIN.REQUEST, 'values', 'resolve', 'reject')
 export const loginSuccess = makeActionCreator(actionTypes.LOGIN.SUCCESS, 'token', 'payload')

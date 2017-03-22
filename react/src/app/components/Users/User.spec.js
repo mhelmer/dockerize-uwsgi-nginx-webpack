@@ -2,6 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { User } from './User'
+import { H2 } from '../Headings'
 
 const firstUser = { id: 1, username: 'First user' }
 
@@ -16,7 +17,7 @@ describe('<User />', () => {
   it('renders one <h2 />', () => {
     const { enzymeWrapper } = setup({ user: firstUser })
 
-    const Headings = enzymeWrapper.find('h2')
+    const Headings = enzymeWrapper.find(H2)
 
     expect(Headings.length).toBe(1)
     expect(Headings.first().props().children).toBe('First user')
