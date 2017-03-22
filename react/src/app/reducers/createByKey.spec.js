@@ -11,25 +11,24 @@ describe('createByKey module', () => {
       )(reducer)
       const getByKey = createGetByKey(({ filterKey }) => filterKey)
 
-      const successState = byKeyReducer(undefined, {
+      const state = [ {}, {
         type: 'FETCH_SUCCESS',
         filterKey: 4,
         payload: 'some-payload',
-      })
-      expect(getByKey(successState, { filterKey: 4 })).toBe('some-payload')
-
+      } ].reduce(byKeyReducer, undefined)
+      expect(getByKey(state, { filterKey: 4 })).toBe('some-payload')
     })
   })
-  describe('createByKey', () => {
-    it('should create a simple byKey reducer', () => {
+  describe('createByFilterQuery', () => {
+    it('should create a simple byFilterQuery reducer', () => {
       const byKeyReducer = createByFilterQuery('someKey')(reducer)
       const getByFilterQuery = createGetByFilterQuery('someKey')
 
-      const state = byKeyReducer(undefined, {
+      const state = [ {}, {
         type: 'FETCH_SUCCESS',
         filterQuery: { someKey: 4 },
         payload: 'some-payload',
-      })
+      } ].reduce(byKeyReducer, undefined)
       expect(getByFilterQuery(state, { filterQuery: { someKey: 4 } })).toBe('some-payload')
 
     })

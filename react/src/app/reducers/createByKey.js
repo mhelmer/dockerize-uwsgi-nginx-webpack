@@ -21,6 +21,5 @@ export const createByFilterQuery = filterQueryKey => {
   return createByKey(predicate, mapActionToKey)
 }
 export const createGetByFilterQuery = filterQueryKey => {
-  const mapFilterToKey = ({ filterQuery }) => filterQuery[filterQueryKey]
-  return createGetByKey(mapFilterToKey)
+  return createGetByKey(({ filterQuery }) => filterQuery[filterQueryKey])
 }

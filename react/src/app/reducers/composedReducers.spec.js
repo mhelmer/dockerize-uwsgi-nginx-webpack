@@ -1,9 +1,48 @@
 import { compose } from 'redux'
 
+import createActionTypes from 'actions/createActionTypes'
 import createList, * as fromList from './createList'
-import createFilter, { createFilterReducers, getByFilter } from './createFilter'
+import createFilter, { createGetByFilter, createFilterReducers, createEnhancedFilter, getByFilter } from './createFilter'
+import { createByFilterQuery, createGetByFilterQuery } from './createByKey'
 
 describe('Compositions of higher-order reducers', () => {
+  describe('createEnhancedFilter, createByFilterQuery and createList', () => {
+    const actionTypes = createActionTypes('FETCH')
+    it('should handle a filter enhanced filterQuery', () => {
+      const fetchSuccess = ({ filterName, filterQuery }, payload) => ({
+        type: actionTypes.SUCCESS,
+        filterName,
+        filterQuery,
+        response: { result: payload },
+      })
+
+      const filters = { FILTER_RELATED: 'FILTER_RELATED', FILTER_OTHER: 'FILTER_OTHER' }
+      const filterArray = [ filters.FILTER_RELATED, filters.FILTER_OTHER ]
+
+      const enhance = compose(
+        createEnhancedFilter(filterArray, {
+          [filters.FILTER_RELATED]: createByFilterQuery('relatedId'),
+        }),
+        createList
+      )
+      const reducer = enhance(actionTypes)
+
+      const ids = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+      const filter = {
+        filterName: filters.FILTER_RELATED,
+        filterQuery: { relatedId: 3 },
+      }
+      const state = [ {}, fetchSuccess(filter, ids) ].reduce(reducer, undefined)
+
+
+      const getByFilter = createGetByFilter({
+        [filter.filterName]: createGetByFilterQuery('relatedId'),
+      })
+      const getIds = compose(fromList.getIds, getByFilter)
+
+      expect(getIds(state, filter)).toBe(ids)
+    })
+  })
   describe('filters and createList', () => {
     const actionTypes = {
       SUCCESS: 'FETCH_SUCCESS',
@@ -28,7 +67,9 @@ describe('Compositions of higher-order reducers', () => {
         })
 
         const ids = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-        const state = reducer(undefined, fetchSuccess(filters.FILTER_ONE, ids))
+        const state = [ {},
+          fetchSuccess(filters.FILTER_ONE, ids),
+        ].reduce(reducer, undefined)
 
         const filterOne = getByFilter(state, { filterName: filters.FILTER_ONE })
         const filterTwo = getByFilter(state, { filterName: filters.FILTER_TWO })
@@ -51,7 +92,9 @@ describe('Compositions of higher-order reducers', () => {
         const reducer = enhance(actionTypes)
 
         const ids = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-        const state = reducer(undefined, fetchSuccess(filters.FILTER_ONE, ids))
+        const state = [ {},
+          fetchSuccess(filters.FILTER_ONE, ids),
+        ].reduce(reducer, undefined)
 
         expect(fromList.getIds(getByFilter(state, {
           filterName: filters.FILTER_ONE,

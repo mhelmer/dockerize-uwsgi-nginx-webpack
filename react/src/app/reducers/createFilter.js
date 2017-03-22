@@ -1,5 +1,6 @@
 import { has } from 'lodash'
 import { compose } from 'redux'
+import createByKey, { createGetByKey } from 'reducers/createByKey'
 
 export const enhanceReducers = (enhancers = {}) => reducers => {
   const finalReducers = Object.keys(reducers).filter(
@@ -14,7 +15,7 @@ export const enhanceReducers = (enhancers = {}) => reducers => {
   return finalReducers
 }
 
-export const createEnhancerFilter = (filterNames, filterEnhancers = {}) => {
+export const createEnhancedFilter = (filterNames, filterEnhancers = {}) => {
   return compose(
     createFilter,
     enhanceReducers(filterEnhancers),
@@ -29,6 +30,14 @@ export const createFilterReducers = filterNames => reducer => {
   }, {})
 }
 
+const withInitialState = initialState => reducer => {
+  return (state = initialState, action) => reducer(state, action)
+}
+
+const mapToReducer = mapActionToKey => reducers => (state, action) => {
+  return reducers[mapActionToKey(action)](state, action)
+}
+
 const combineInitialStates = reducers => Object.keys(reducers).reduce(
   (initialState, reducerKey) => {
     initialState[reducerKey] = reducers[reducerKey](undefined, {})
@@ -37,32 +46,22 @@ const combineInitialStates = reducers => Object.keys(reducers).reduce(
   {}
 )
 
-// we can re-use createByKey here somehow, but we need to pass initialState
-const createKeyReducer = (mapActionToKey, reducers) => (state, action) => {
-  const key = mapActionToKey(action)
-  return {
-    ...state,
-    [key]: reducers[key](state[key], action),
-  }
-}
-
 const mapActionToKey = action => action.filterName
 
 const createFilter = filterReducers => {
   const filterPredicate = action => has(action, 'filterName') && has(filterReducers, action.filterName)
-  const filterReducer = createKeyReducer(mapActionToKey, filterReducers)
   const initialState = combineInitialStates(filterReducers)
-  return (state = initialState, action) => {
-    if (filterPredicate(action)) {
-      return filterReducer(state, action)
-    }
-    return state
-  }
+
+  return compose(
+    withInitialState(initialState),
+    createByKey(filterPredicate, mapActionToKey),
+    mapToReducer(mapActionToKey)
+  )(filterReducers)
 }
 
 export default createFilter
 
-export const getByFilter = (state, { filterName }) => state[filterName]
+export const getByFilter = createGetByKey(({ filterName }) => filterName)
 export const createGetByFilter = (selectors = {}) => (state, filterArgs, ...args) => {
   const filterState = getByFilter(state, filterArgs)
   return has(selectors, filterArgs.filterName) ? selectors[filterArgs.filterName](filterState, filterArgs, ...args)

@@ -22,7 +22,7 @@ describe('createList', () => {
   it('should return correct ids on success', () => {
     const list = createList(actionTypes)
     const ids = [ 1, 2, 3 ]
-    const state = list(undefined, fetchSuccess(ids))
+    const state = [ {}, fetchSuccess(ids) ].reduce(list, undefined)
 
     expect(selectors.getIds(state)).toBe(ids)
     expect(selectors.getIsFetching(state)).toBe(false)

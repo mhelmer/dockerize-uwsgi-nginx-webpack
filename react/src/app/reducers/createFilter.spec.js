@@ -1,6 +1,6 @@
 import { compose } from 'redux'
 
-import createFilter, { getByFilter, createEnhancerFilter, enhanceReducers, createFilterReducers } from './createFilter'
+import createFilter, { getByFilter, createEnhancedFilter, enhanceReducers, createFilterReducers } from './createFilter'
 
 describe('Higher order reducers for filters', () => {
   describe('simple reducer', () => {
@@ -9,18 +9,18 @@ describe('Higher order reducers for filters', () => {
     describe('createFilter', () => {
       it('should have initial state', () => {
         const filterReducer = createFilter({ ['FILTER_ONE']: reducer })
-        const state = filterReducer(undefined, {})
+        const state = [ {} ].reduce(filterReducer, undefined)
         expect(getByFilter(state, { filterName: 'FILTER_ONE' })).toBe(null)
       })
       it('should handle a single filter', () => {
         const FILTER_ONE = 'FILTER_ONE'
         const filterReducer = createFilter({ [FILTER_ONE]: reducer })
 
-        const state = filterReducer(undefined, {
+        const state = [ {}, {
           type: 'FETCH_FILTER_SUCCESS',
           filterName: FILTER_ONE,
           payload: 'some-payload',
-        })
+        } ].reduce(filterReducer, undefined)
         expect(getByFilter(state, { filterName: FILTER_ONE })).toBe('some-payload')
       })
 
@@ -37,7 +37,10 @@ describe('Higher order reducers for filters', () => {
           [FILTER_TWO]: reducer,
         })
 
-        const state = filterReducer(undefined, fetchSuccess(FILTER_ONE, 'some-payload'))
+        const state = [ {},
+          fetchSuccess(FILTER_ONE, 'some-payload'),
+        ].reduce(filterReducer, undefined)
+
         expect(getByFilter(state, { filterName: FILTER_ONE })).toBe('some-payload')
         expect(getByFilter(state, { filterName: FILTER_TWO })).toBe(null)
       })
@@ -55,47 +58,54 @@ describe('Higher order reducers for filters', () => {
           createFilterReducers(filterNames)
         )(reducer)
 
-        const state = filterReducer(undefined, {
+        const state = [ {}, {
           type: 'FETCH_FILTER_SUCCESS',
           filterName: 'FILTER_ONE',
           payload: 'some-payload',
-        })
+        } ].reduce(filterReducer, undefined)
+
         expect(getByFilter(state, { filterName: 'FILTER_ONE' }).enhanced).toBe('some-payload')
         expect(getByFilter(state, { filterName: 'FILTER_TWO' })).toBe(null)
       })
     })
 
-    describe('createEnhancerFilter', () => {
+    describe('createEnhancedFilter', () => {
       it('should have initial state', () => {
-        const filterReducer = createEnhancerFilter([ 'FILTER_ONE' ])(reducer)
+        const filterReducer = createEnhancedFilter([ 'FILTER_ONE' ])(reducer)
         const state = filterReducer(undefined, {})
         expect(getByFilter(state, { filterName: 'FILTER_ONE' })).toBe(null)
       })
       it('should handle a single filter without enhancers', () => {
         const FILTER_ONE = 'FILTER_ONE'
-        const filterReducer = createEnhancerFilter([ FILTER_ONE ])(reducer)
+        const filterReducer = createEnhancedFilter([ FILTER_ONE ])(reducer)
 
-        const state = filterReducer(undefined, {
+        const state = [ {}, {
           type: 'FETCH_FILTER_SUCCESS',
           filterName: FILTER_ONE,
           payload: 'some-payload',
-        })
+        } ].reduce(filterReducer, undefined)
         expect(getByFilter(state, { filterName: FILTER_ONE })).toBe('some-payload')
       })
-      it('should handle a single filter with enhancer', () => {
-        const filterNames = [ 'FILTER_ONE' ]
+      it('should handle a two filters with one enhancer', () => {
+        const filters = { FILTER_ONE: 'FILTER_ONE', FILTER_TWO: 'FILTER_TWO' }
+        const filterNames = [ filters.FILTER_ONE, filters.FILTER_TWO ]
+
         const enhancer = reducer => (state = {}, action) => ({
           ...state,
           enhanced: reducer(state.enhanced, action),
         })
-        const filterReducer = createEnhancerFilter(filterNames, { ['FILTER_ONE']: enhancer })(reducer)
+        const filterReducer = createEnhancedFilter(filterNames, {
+          [filters.FILTER_ONE]: enhancer,
+        })(reducer)
 
-        const state = filterReducer(undefined, {
+        const state = [ {}, {
           type: 'FETCH_FILTER_SUCCESS',
-          filterName: 'FILTER_ONE',
+          filterName: filters.FILTER_ONE,
           payload: 'some-payload',
-        })
-        expect(getByFilter(state, { filterName: 'FILTER_ONE' }).enhanced).toBe('some-payload')
+        } ].reduce(filterReducer, undefined)
+
+        expect(getByFilter(state, { filterName: filters.FILTER_ONE }).enhanced).toBe('some-payload')
+        expect(getByFilter(state, { filterName: filters.FILTER_TWO })).toBe(null)
       })
     })
   })
