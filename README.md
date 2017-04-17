@@ -68,14 +68,15 @@ docker-compose -f docker-compose.yml -f docker-compose.prod.yml <args>
 Extract static files for nginx:
 ```
 docker-compose build django
-docker-compose run django ./manage.py --collectstatic --noinput
+docker-compose run django ./manage.py collectstatic --noinput
 mkdir nginx/django
 rsync -a --include 'static' django/src/static nginx/django
 
 docker-compose build react
-$react=docker run -it dockerizeuwsginginxwebpack_react:latest sleep 1
-rm -r nginx/react/dist && docker cp $react:/srv/react/dist nginx/react/dist
-docker rm $react
+docker-compose run react sleep 1
+docker run --name react_static dockerizeuwsginginxwebpack_react:latest sleep
+rm -r nginx/react/dist && docker cp react_static:/srv/react/dist nginx/react/dist
+docker rm react_static
 ```
 
 

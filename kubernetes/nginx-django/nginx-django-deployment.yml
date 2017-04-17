@@ -11,6 +11,6 @@ spec:
     spec:
       containers:
       - name: nginx-django
-        image: gcr.io/xs-amiable-bonus-6/django-nginx:1.2
+        image: gcr.io/xs-amiable-bonus-6/nginx-django:1.8
         ports:
         - containerPort: 80
