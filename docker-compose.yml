@@ -12,7 +12,7 @@ services:
             - static:/srv/django/static
         links:
             - postgres:postgres
-            - rabbitmq:rabbitmq
+            - rabbitmq:rabbitmq.default.svc.cluster.local
             - redis:redis
 
     celery:
@@ -23,7 +23,7 @@ services:
             - rabbitmq/rabbitmq-variables.env
         links:
             - postgres:postgres
-            - rabbitmq:rabbitmq
+            - rabbitmq:rabbitmq.default.svc.cluster.local
             - redis:redis
         command: celery -A project worker -l warning
 

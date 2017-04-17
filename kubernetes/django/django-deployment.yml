@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: django
-        image: gcr.io/xs-amiable-bonus-6/django-image:1.4
+        image: gcr.io/xs-amiable-bonus-6/django-image:1.8
         env:
         - name: POSTGRES_USER
           value: "postgres"
@@ -20,8 +20,12 @@ spec:
         - name: DJANGO_SETTINGS_MODULE
           value: "project.settings.prod"
         - name: RABBITMQ_DEFAULT_USER
-          value: "user"
+          value: "guest"
         - name: RABBITMQ_DEFAULT_PASS
-          value: "password"
+          value: "guest"
+        - name: RABBITMQ_DEFAULT_VHOST
+          value: "/"
+        - name: SECRET_KEY
+          value: "_i%mh%l&)sd*cqfrx0emua)o84+*!+5w29m%c03kqb4eym+6gc"
         ports:
         - containerPort: 8000

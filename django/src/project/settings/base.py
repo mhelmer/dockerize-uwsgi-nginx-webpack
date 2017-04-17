@@ -166,9 +166,10 @@ SWAGGER_SETTINGS = {
 }
 
 
-CELERY_BROKER_URL = 'amqp://{user}:{password}@rabbitmq:5672//'.format(
+CELERY_BROKER_URL = 'amqp://{user}:{password}@rabbitmq.default.svc.cluster.local:5672/{vhost}'.format(
     user=os.environ.get('RABBITMQ_DEFAULT_USER'),
     password=os.environ.get('RABBITMQ_DEFAULT_PASS'),
+    vhost=os.environ.get('RABBITMQ_DEFAULT_VHOST', '/')
 )
 CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
 
@@ -185,7 +186,7 @@ LOGGING = {
         'consoleout': {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
-            'strm': sys.stdout
+            'stream': sys.stdout
         },
         'consoleerr': {
             'level': 'WARNING',

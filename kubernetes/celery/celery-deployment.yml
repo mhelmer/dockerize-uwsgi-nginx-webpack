@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
       - name: celery
-        image: gcr.io/xs-amiable-bonus-6/django-image
+        image: gcr.io/xs-amiable-bonus-6/django-image:1.7
         command: ["/usr/local/bin/entrypoint", "celery", "-A", "project", "worker", "-l", "warning"]
         env:
         - name: POSTGRES_USER
@@ -24,3 +24,5 @@ spec:
           value: "user"
         - name: RABBITMQ_DEFAULT_PASS
           value: "password"
+        - name: SECRET_KEY
+          value: "_i%mh%l&)sd*cqfrx0emua)o84+*!+5w29m%c03kqb4eym+6gc"

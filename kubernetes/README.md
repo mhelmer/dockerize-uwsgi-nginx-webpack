@@ -1,6 +1,8 @@
 Orchestration with Kubernetes
 =============================
 
+Please configure secrets before using this in production
+
 Postgres
 --------
 
