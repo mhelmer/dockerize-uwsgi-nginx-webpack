@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': os.environ.get('POSTGRES_USER'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
-        'HOST': 'postgres',
+        'HOST': 'postgres.default.svc.cluster.local',
         'PORT': 5432,
     }
 }
