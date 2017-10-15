@@ -1,5 +1,6 @@
 {
   "verbose": true,
+  "setupFiles": ["./setupTests.js"],
   "collectCoverageFrom": [
     "**/*.{js,jsx}",
     "!**/node_modules/**",
