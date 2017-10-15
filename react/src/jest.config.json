@@ -1,6 +1,7 @@
 {
   "verbose": true,
-  "setupFiles": ["./setupTests.js"],
+  "setupTestFrameworkScriptFile": "./setupTests.js",
+  "roots": ["./app"],
   "collectCoverageFrom": [
     "**/*.{js,jsx}",
     "!**/node_modules/**",
