@@ -8,7 +8,7 @@ WORKDIR /srv/react
 RUN chown -R node:node .
 USER node
 
-RUN npm install --quiet
+RUN yarn install --quiet
 COPY src /srv/react
 USER root
 RUN chown -R node:node .

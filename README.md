@@ -50,7 +50,7 @@ docker-compose  build
 docker-compose run nginx chown -R 1000:1000 /srv/*
 
 docker-compose run django ./bootstrap-dev
-docker-compose run react npm install
+docker-compose run react yarn install
 
 docker-compose up
 ```
