@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Route } from 'react-router-dom'
 
 import { getAllUsers, getIsFetchingUsers, getIsAuthenticated } from 'reducers'
 import { fetchUsersRequest } from 'actions/user'
+import User from './User'
 import UserList from './UserList'
 
 class Users extends Component {
@@ -13,14 +15,17 @@ class Users extends Component {
     !prevProps.isAuthenticated && this.props.isAuthenticated && this.props.fetchUsersRequest()
   }
   render() {
-    const { isAuthenticated, isFetching, users, children } = this.props
+    const { match, isAuthenticated, isFetching, users } = this.props
     return (
       <div>
         <h2>Users</h2>
         { !isAuthenticated ? <span>Log in to see users</span>
           : users.length === 0 && isFetching ? <span>Loading...</span>
-          : <UserList users={users} children={children} />
-        }
+          : (
+            <UserList users={users}>
+              <Route path={`${match.url}/:userId`} component={User} />
+            </UserList>
+        ) }
       </div>
     )
   }
