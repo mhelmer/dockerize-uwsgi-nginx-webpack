@@ -21,7 +21,6 @@
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
-    "react-router-redux": "^5.0.0-alpha.2",
     "redux": "^3.5.2",
     "redux-form": "^6.5.0",
     "redux-logger": "^2.6.1",

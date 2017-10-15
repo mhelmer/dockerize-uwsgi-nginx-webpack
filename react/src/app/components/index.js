@@ -1,5 +1,5 @@
 import React from 'react'
-import { ConnectedRouter as Router } from 'react-router-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import Routes from './Routes'
 
