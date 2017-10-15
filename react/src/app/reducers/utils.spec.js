@@ -35,14 +35,14 @@ describe('reducer utils', () => {
     })
     it('can create simple reducer that handles one action', () => {
       const reducer = createReducer('initial state', {
-        ['ACTION_TYPE']: () => 'next state',
+        'ACTION_TYPE': () => 'next state',
       })
       expect(reducer(undefined, {})).toBe('initial state')
       expect(reducer(undefined, { type: 'ACTION_TYPE' })).toBe('next state')
     })
     it('can create reducer that handles action with payload', () => {
       const reducer = createReducer(null, {
-        ['ACTION_TYPE']: (state, action) => action.payload,
+        'ACTION_TYPE': (state, action) => action.payload,
       })
       expect(
         reducer(undefined, { type: 'ACTION_TYPE', payload: 'heavy load' })
@@ -50,8 +50,8 @@ describe('reducer utils', () => {
     })
     it('can create reducer that handles two actions', () => {
       const reducer = createReducer('initial state', {
-        ['ACTION_TYPE_1']: () => 'state one',
-        ['ACTION_TYPE_2']: () => 'state two',
+        'ACTION_TYPE_1': () => 'state one',
+        'ACTION_TYPE_2': () => 'state two',
       })
       expect(reducer(undefined, {})).toEqual('initial state')
       expect(reducer(undefined, { type: 'ACTION_TYPE_1' })).toBe('state one')

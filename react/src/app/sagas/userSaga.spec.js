@@ -25,7 +25,7 @@ describe('userSaga', () => {
       const generator = fetchUsers()
       generator.next()
 
-      const next = generator.throw(new function () { this.message = 'some message' })
+      const next = generator.throw(new function () { this.message = 'some message' }())
 
       expect(next.value).toEqual(put(actionCreators.fetchUsersFailure('some message')))
       expect(generator.next().done).toBe(true)
