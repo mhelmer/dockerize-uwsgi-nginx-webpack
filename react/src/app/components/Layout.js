@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import Auth from 'components/Auth'
 import 'styles/main.scss'
@@ -10,10 +10,10 @@ const Layout = ({ children }) => (
     <h1>Main Heading</h1>
     <ul>
       <li>
-        <Link to={'/'} activeClassName="active">Home</Link>
+        <NavLink to={'/'} activeClassName="active">Home</NavLink>
       </li>
       <li>
-        <Link to={'/users'} activeClassName="active">Users</Link>
+        <NavLink to={'/users'} activeClassName="active">Users</NavLink>
       </li>
     </ul>
     <div className="detail">

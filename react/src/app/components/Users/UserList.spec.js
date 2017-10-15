@@ -45,7 +45,7 @@ describe('UserList components', () => {
     }
     it('renders username', () => {
       const { enzymeWrapper } = setup({ user: firstUser })
-      const UserLinks = enzymeWrapper.find('Link')
+      const UserLinks = enzymeWrapper.find('NavLink')
       expect(UserLinks.length).toBe(1)
 
       const UserLink = UserLinks.first()

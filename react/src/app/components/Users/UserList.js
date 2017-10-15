@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export const UserListItem = ({ user }) => (
   <li>
-    <Link to={`/users/${user.id}`} activeClassName="active">{user.username}</Link>
+    <NavLink to={`/users/${user.id}`} activeClassName="active">{user.username}</NavLink>
   </li>
 )
 UserListItem.propTypes = {
