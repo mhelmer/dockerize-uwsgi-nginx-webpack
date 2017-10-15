@@ -1,5 +1,13 @@
 {
-  "presets": [["es2015", { "modules": false }], "react"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "> 5%"]
+      },
+      "modules": false
+    }],
+    "react"
+  ],
   "plugins": [
     "transform-object-rest-spread",
     "react-hot-loader/babel",
